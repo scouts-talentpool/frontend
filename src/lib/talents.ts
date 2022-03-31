@@ -1,16 +1,10 @@
-import { User } from '@auth0/auth0-react';
-
-export const extractUserId = (user: User) => {
-  const userId = user?.sub?.split('|')[1];
-  return userId;
-};
-
-export const getUserById = async (user: User, accessToken: string) => {
-  const userId = extractUserId(user);
-
+export const getTalentProfile = async (
+  talentProfileId: string,
+  accessToken: string,
+) => {
   try {
     const request = await fetch(
-      `${import.meta.env.VITE_API_URL}/users/${userId}`,
+      `${import.meta.env.VITE_API_URL}/talents/${talentProfileId}`,
       {
         method: 'GET',
         headers: new Headers({
@@ -25,4 +19,3 @@ export const getUserById = async (user: User, accessToken: string) => {
     return null;
   }
 };
-

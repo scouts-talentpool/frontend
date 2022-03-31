@@ -9,12 +9,12 @@ type ProtectedRouteProps = {
 };
 
 export function ProtectedRoute({ outlet }: ProtectedRouteProps) {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
 
   const toast = useToast();
   const toast_id = 'unauthorized-warning';
 
-  if (isAuthenticated) {
+  if (isAuthenticated || isLoading) {
     return outlet;
   } else {
     useEffect(() => {
