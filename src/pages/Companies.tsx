@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import {
-  Flex,
-  useColorModeValue,
-  Container,
-  Stack,
-  Divider,
-} from '@chakra-ui/react';
+import { Stack } from '@chakra-ui/react';
 import { CompanyCard } from '../components/companies/CompanyCard';
 import { getCompanies } from '../lib/companies';
 

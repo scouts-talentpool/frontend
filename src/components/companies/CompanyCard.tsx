@@ -10,6 +10,7 @@ type CompanyCardProps = {
   title: string;
   location: string;
   about: string;
+  linkPrefix?: string;
 };
 
 export const CompanyCard = ({
@@ -18,15 +19,24 @@ export const CompanyCard = ({
   title,
   location,
   about,
+  linkPrefix,
 }: CompanyCardProps) => {
   return (
     <HorizontalCard imgUrl={imgUrl}>
       {/* Title */}
-      <Link to={`/company/${id}`}>
-        <Heading textAlign="center" fontWeight="bold" fontSize={24}>
-          {title}
-        </Heading>
-      </Link>
+      {linkPrefix ? (
+        <Link to={`${linkPrefix}/${id}`}>
+          <Heading textAlign="center" fontWeight="bold" fontSize={24}>
+            {title}
+          </Heading>
+        </Link>
+      ) : (
+        <Link to={`/company/${id}`}>
+          <Heading textAlign="center" fontWeight="bold" fontSize={24}>
+            {title}
+          </Heading>
+        </Link>
+      )}
 
       {/* Location */}
       {location ? (
