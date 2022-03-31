@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/ICT_LOGO_schwarz_transparent.png';
 
 import { NavBar } from '../navigation/NavBar';
+import { NavMenu } from '../navigation/NavMenu';
 // import { UserMenu } from './UserMenu';
 
 export const Header = () => {
@@ -19,7 +20,8 @@ export const Header = () => {
           </Link>
 
           <NavBar />
-          {/* {isAuthenticated ? <UserMenu /> : <></>} */}
+          {/* {isAuthenticated ? <NavMenu /> : <></>} */}
+          <NavMenu />
         </Flex>
       </Box>
     </header>
