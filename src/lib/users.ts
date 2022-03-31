@@ -26,21 +26,44 @@ export const getUserById = async (user: User, accessToken: string) => {
   }
 };
 
-export const createUser = async (user: User, accessToken: string) => {
-  const userId = extractUserId(user);
-
+export const getTalentProfile = async (
+  talentProfileId: string,
+  accessToken: string,
+) => {
   try {
-    const request = await fetch(`${import.meta.env.VITE_API_URL}/users/new`, {
-      method: 'POST',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      }),
-      body: JSON.stringify({
-        userId,
-      }),
-    });
+    const request = await fetch(
+      `${import.meta.env.VITE_API_URL}/talents/${talentProfileId}`,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        }),
+      },
+    );
+    return await request.json();
+  } catch {
+    return null;
+  }
+};
+
+export const getCompanyProfile = async (
+  companyProfileId: string,
+  accessToken: string,
+) => {
+  try {
+    const request = await fetch(
+      `${import.meta.env.VITE_API_URL}/companies/${companyProfileId}`,
+      {
+        method: 'GET',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        }),
+      },
+    );
     return await request.json();
   } catch {
     return null;

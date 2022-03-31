@@ -17,12 +17,14 @@ import { getUserById } from '../../lib/users';
 export const NavMenu = () => {
   const { user, logout, getAccessTokenSilently } = useAuth0();
 
-  const [userProfile, setUserProfile] = useState<any>();
+  const [userProfile, setUserProfile] = useState<any | undefined>();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
+      if (!user) return;
+
       const token = await getAccessTokenSilently();
-      const userProfile = getUserById(user!, token);
+      const userProfile = await getUserById(user, token);
       if (userProfile) setUserProfile(userProfile);
     };
 
@@ -53,13 +55,13 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {userProfile.role !== 'ADMIN' ? (
+        {userProfile?.role !== 'ADMIN' ? (
           <MenuItem
             as={NavLink}
             to={
-              userProfile.role === 'COMPANY'
-                ? `/companies/${userProfile.id}`
-                : `/talents/${userProfile.id}`
+              userProfile?.role === 'COMPANY'
+                ? `/companies/${userProfile?.id}`
+                : `/talents/${userProfile?.id}`
             }
           >
             Profile
