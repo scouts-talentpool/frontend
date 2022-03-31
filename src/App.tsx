@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 
 // Components
 import { Header } from './components/partials/Header';
@@ -13,9 +13,9 @@ function App() {
     <div id="app">
       <Header />
       <main>
-        <Container>
+        <Box bg="gray.50">
           <Routes />
-        </Container>
+        </Box>
       </main>
       <Footer />
     </div>

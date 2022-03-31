@@ -2,8 +2,8 @@
 
 ## Colors
 
-| Color  | Hex                                        | Elemente                                      |
-| :----- | ------------------------------------------ | --------------------------------------------- |
-| Weiss  | <span style="color:fcfcf4">#fcfcf4</span>  | Haupthintergrund                              |
-| Grau   | <span style="color:#ebebe3">#ebebe3</span> | Hintergrund von Cards, überlagerten Elementen |
-| Akzent | <span style="color:#ffd932">#ffd932</span> | Buttons, Links, Interaktionspunkte            |
+| Color  | Chakra Name                                                          | Elemente                                      |
+| :----- | -------------------------------------------------------------------- | --------------------------------------------- |
+| Weiss  | <span style="color:#F7FAFC; background-color: black;">gray.50</span> | Haupthintergrund                              |
+| Grau   | <span style="color:#E2E8F0;background-color: black;">gray.200</span> | Hintergrund von Cards, überlagerten Elementen |
+| Akzent | <span style="color:#0053FF">blue.500</span>                          | Buttons, Links, Interaktionspunkte            |
