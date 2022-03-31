@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from '@chakra-ui/react';
+import { Flex, Link, Stack } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -8,7 +8,7 @@ export const NavBar = () => {
 
   return (
     <nav>
-      <ul>
+      <Stack direction="row">
         <Link to="/" as={NavLink}>
           Home
         </Link>
@@ -22,7 +22,7 @@ export const NavBar = () => {
         ) : (
           <></>
         )}{' '}
-      </ul>
+      </Stack>
     </nav>
   );
 };

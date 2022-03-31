@@ -10,9 +10,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Auth0Provider
-        domain={import.meta.env.AUTH0_DOMAIN}
-        clientId={import.meta.env.AUTH0_CLIENT_ID}
-        audience={import.meta.env.API_URL}
+        domain={import.meta.env.VITE_AUTH0_DOMAIN}
+        clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+        audience={import.meta.env.VITE_API_URL}
         redirectUri={window.location.origin}
       >
         <ChakraProvider>
