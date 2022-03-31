@@ -1,15 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Box, Flex, Image } from '@chakra-ui/react';
+import { Box, Flex, Image, Stack } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-// import { useAuth0 } from '@auth0/auth0-react';
 import Logo from '../../assets/ICT_LOGO_schwarz_transparent.png';
 
 import { NavBar } from '../navigation/NavBar';
 import { NavMenu } from '../navigation/NavMenu';
-// import { UserMenu } from './UserMenu';
 
 export const Header = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
 
   return (
     <header>
@@ -19,9 +17,10 @@ export const Header = () => {
             <Image src={Logo} alt="ICT-Scouts Logo" w="96px" />
           </Link>
 
-          <NavBar />
-          {/* {isAuthenticated ? <NavMenu /> : <></>} */}
-          <NavMenu />
+          <Stack direction="row" spacing={5}>
+            <NavBar />
+            {user ? <NavMenu /> : <></>}
+          </Stack>
         </Flex>
       </Box>
     </header>

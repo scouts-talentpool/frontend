@@ -4,25 +4,25 @@ import { NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const NavBar = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
 
   return (
-    <nav>
-      <Stack direction="row">
+    <Flex justifyContent="center" alignItems="center">
+      <Stack direction="row" spacing={5}>
         <Link to="/" as={NavLink}>
           Home
         </Link>
         <Link to="/companies" as={NavLink}>
           Firmen
         </Link>
-        {!isAuthenticated ? (
+        {!user ? (
           <Link to={'/login'} as={NavLink}>
             Login
           </Link>
         ) : (
           <></>
-        )}{' '}
+        )}
       </Stack>
-    </nav>
+    </Flex>
   );
 };
