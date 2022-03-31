@@ -26,3 +26,20 @@ export const getUserById = async (user: User, accessToken: string) => {
   }
 };
 
+export const createUser = async (user: any, accessToken: string) => {
+  try {
+    const request = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+      method: 'POST',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      }),
+      body: JSON.stringify(user),
+    });
+    const lmao = await request.json();
+    console.log(lmao);
+  } catch {
+    return null;
+  }
+};
