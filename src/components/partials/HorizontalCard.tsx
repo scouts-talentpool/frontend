@@ -17,21 +17,22 @@ export const HorizontalCard = () => {
   return (
     <Center py={6}>
       <Stack
-        borderWidth="1px"
+        borderWidth="0px"
         borderRadius="lg"
         w={{ sm: '100%', md: '540px' }}
         height={{ sm: '476px', md: '20rem' }}
         direction={{ base: 'column', md: 'row' }}
-        bg={useColorModeValue('white', 'gray.900')}
+        bg={useColorModeValue('#FEFEFE', 'gray.900')}
         boxShadow={'2xl'}
         padding={4}
+        rounded="0px"
       >
         <Flex flex={1} bg="blue.200">
           <Image
             objectFit="cover"
             boxSize="100%"
             src={
-              'https://images.unsplash.com/photo-1520810627419-35e362c5dc07?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+              'https://www.architekturbibliothek.ch/wp-content/uploads/2018/10/6003.01a_Kantonalbank.jpg'
             }
           />
         </Flex>
@@ -43,49 +44,16 @@ export const HorizontalCard = () => {
           p={1}
           pt={2}
         >
-          <Heading fontSize={'2xl'} fontFamily={'body'}>
-            Lindsey James
-          </Heading>
-          <Text fontWeight={600} color={'gray.500'} size="sm" mb={4}>
-            @lindsey_jam3s
-          </Text>
-          <Text
-            textAlign={'center'}
-            color={useColorModeValue('gray.700', 'gray.400')}
-            px={3}
-          >
-            Actress, musician, songwriter and artist. PM for work inquires or
-            <Link href={'#'} color={'blue.400'}>
-              #tag
-            </Link>
-            me in your posts
-          </Text>
-          <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #art
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #photography
-            </Badge>
-            <Badge
-              px={2}
-              py={1}
-              bg={useColorModeValue('gray.50', 'gray.800')}
-              fontWeight={'400'}
-            >
-              #music
-            </Badge>
-          </Stack>
+
+        <Heading textAlign="center" as="" fontWeight="bold" fontSize={24}>
+            Luzerner Kantonalbank
+        </Heading>
+        <Text size="sm" mb={4} as="i" color="gray.700">
+            Location Ipsum
+        </Text>
+        <Text textAlign="center" as="i" px={3}>
+            About Ipsum Lorem Ipsum dolor
+        </Text>
 
           <Stack
             width={'100%'}
