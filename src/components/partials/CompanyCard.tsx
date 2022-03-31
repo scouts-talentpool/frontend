@@ -1,6 +1,6 @@
 import React from 'react';
-import { BaseButton } from './BaseButton';
-import HorizontalCard from './HorizontalCard';
+import { BaseButton } from '../base/BaseButton';
+import HorizontalCard from '../base/HorizontalCard';
 import { Heading, Stack, Text } from '@chakra-ui/react';
 
 type CompanyCardProps = {

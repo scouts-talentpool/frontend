@@ -10,25 +10,24 @@ import {
   MenuItem,
 } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { getUserById } from '../../lib/users';
 
 export const NavMenu = () => {
   const { user, logout, getAccessTokenSilently } = useAuth0();
-  const navigate = useNavigate();
 
   const [userProfile, setUserProfile] = useState<any>();
 
-  // useEffect(() => {
-  //   const fetchUserProfile = async () => {
-  //     const token = await getAccessTokenSilently();
-  //     const userProfile = getUserById(user!, token);
-  //     if (userProfile) setUserProfile(userProfile);
-  //   };
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = await getAccessTokenSilently();
+      const userProfile = getUserById(user!, token);
+      if (userProfile) setUserProfile(userProfile);
+    };
 
-  //   fetchUserProfile().catch(console.error);
-  // }, []);
+    fetchUserProfile().catch(console.error);
+  }, []);
 
   return (
     <Menu>
@@ -54,7 +53,7 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {/* {userProfile.role !== 'ADMIN' ? (
+        {userProfile.role !== 'ADMIN' ? (
           <MenuItem
             as={NavLink}
             to={
@@ -67,7 +66,7 @@ export const NavMenu = () => {
           </MenuItem>
         ) : (
           <></>
-        )} */}
+        )}
 
         <MenuItem as={NavLink} to="/settings">
           Einstellungen

@@ -1,11 +1,7 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Routes as PageRoutes,
-  Route,
-} from 'react-router-dom';
+import { Routes as PageRoutes, Route } from 'react-router-dom';
 
-import ProtectedRoute from './components/navigation/ProtectedRoute';
+import { ProtectedRoute } from './components/navigation/ProtectedRoute';
 
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
@@ -16,8 +12,6 @@ import { Companies } from './pages/Companies';
 import { CompanyDetails } from './pages/CompanyDetails';
 import { Admin } from './pages/Admin/Admin';
 import { Error } from './pages/Error';
-import HorizontalCard from './components/partials/HorizontalCard';
-import { BaseButton } from './components/partials/BaseButton';
 
 export const Routes = () => {
   return (
@@ -29,8 +23,6 @@ export const Routes = () => {
         path="/settings"
         element={<ProtectedRoute outlet={<Settings />} />}
       />
-      <Route path="/hcard" element={<HorizontalCard />}></Route>
-      <Route path="/bbut" element={<BaseButton>Button</BaseButton>}></Route>
       <Route path="/companies" element={<Companies />}></Route>
       <Route path="/companies/:id" element={<CompanyDetails />}></Route>
       <Route path="/talents" element={<Talents />}></Route>
