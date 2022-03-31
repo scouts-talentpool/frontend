@@ -12,6 +12,7 @@ export const BaseButton = ({ children }: BaseButtonProps) => {
       bg="transparent"
       border="1px"
       borderColor="gray.200"
+      boxShadow="md"
       _focus={{}}
     >
       {children}

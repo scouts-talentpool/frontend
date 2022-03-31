@@ -8,7 +8,7 @@ import { Login } from './pages/Login';
 import { Talents } from './pages/Talents';
 import { TalentProfile } from './pages/TalentProfile';
 import { Settings } from './pages/Settings';
-import { Companies } from './pages/Companies';
+import { Companies } from './pages/Companies.tsx';
 import { CompanyDetails } from './pages/CompanyDetails';
 import { Admin } from './pages/Admin/Admin';
 import { Error } from './pages/Error';

@@ -13,7 +13,7 @@ export const HorizontalCard = ({ imgUrl, children }: HorizontalCardProps) => {
         borderWidth="1px"
         borderRadius="lg"
         w={{ sm: '100%', md: '540px' }}
-        height={{ sm: '476px', md: '20rem' }}
+        height={{ sm: '476px', md: '18rem' }}
         direction={{ base: 'column', md: 'row' }}
         bg="#FEFEFE"
         boxShadow="md"

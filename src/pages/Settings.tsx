@@ -16,7 +16,7 @@ import {
 // const audience = process.env.REACT_APP_AUTH0_AUDIENCE || '';
 
 const handleChangePicture = () => {
-  window.open('https://gravatar.com', '_blank')!.focus();
+  window.open('https://gravatar.com', '_blank')?.focus();
 };
 
 export const Settings = () => {
