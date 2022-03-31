@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Box, Button, Heading, Stack } from '@chakra-ui/react';
+import { Box, Button, Heading, Skeleton, Stack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, user, isLoading } = useAuth0();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate(-1);
-  }, [isAuthenticated]);
+    if (user) navigate(-1);
+  }, [user]);
 
   return (
     <Box>
