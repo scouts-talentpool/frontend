@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Skeleton } from '@chakra-ui/react';
+import { Box, Skeleton } from '@chakra-ui/react';
 
 // Components
 import { Header } from './components/partials/Header';

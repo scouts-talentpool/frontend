@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Box, Button, Heading, Skeleton, Stack } from '@chakra-ui/react';
+import { Box, Button, Heading, Stack } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const { loginWithRedirect, user, isLoading } = useAuth0();
+  const { loginWithRedirect, user } = useAuth0();
   const navigate = useNavigate();
 
   useEffect(() => {

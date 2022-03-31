@@ -1,12 +1,9 @@
 import React from 'react';
 import {
-  Badge,
-  Button,
   Center,
   Flex,
   Heading,
   Image,
-  Link,
   Stack,
   Text,
   useColorModeValue,
@@ -44,16 +41,15 @@ export const HorizontalCard = () => {
           p={1}
           pt={2}
         >
-
-        <Heading textAlign="center" as="" fontWeight="bold" fontSize={24}>
+          <Heading textAlign="center" as="" fontWeight="bold" fontSize={24}>
             Luzerner Kantonalbank
-        </Heading>
-        <Text size="sm" mb={4} as="i" color="gray.700">
+          </Heading>
+          <Text size="sm" mb={4} as="i" color="gray.700">
             Location Ipsum
-        </Text>
-        <Text textAlign="center" as="i" px={3}>
+          </Text>
+          <Text textAlign="center" as="i" px={3}>
             About Ipsum Lorem Ipsum dolor
-        </Text>
+          </Text>
 
           <Stack
             width={'100%'}

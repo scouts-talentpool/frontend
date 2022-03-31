@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Routes as PageRoutes,
-  Route,
-  Navigate,
-  useNavigate,
-} from 'react-router-dom';
+import { Routes as PageRoutes, Route } from 'react-router-dom';
 
 import ProtectedRoute from './components/navigation/ProtectedRoute';
 
@@ -18,12 +12,8 @@ import { Companies } from './pages/Companies';
 import { CompanyDetails } from './pages/CompanyDetails';
 import { Admin } from './pages/Admin/Admin';
 import { Error } from './pages/Error';
-import { useAuth0 } from '@auth0/auth0-react';
 
 export const Routes = () => {
-  const { user } = useAuth0();
-  const navigate = useNavigate();
-
   return (
     <PageRoutes>
       <Route path="/" element={<Home />} />
