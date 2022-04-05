@@ -8,28 +8,31 @@ import {
   Center,
   MenuDivider,
   MenuItem,
+  Skeleton,
 } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { NavLink } from 'react-router-dom';
 
 import { getUserById } from '../../lib/users';
+import { useQuery } from 'react-query';
 
 export const NavMenu = () => {
   const { user, logout, getAccessTokenSilently } = useAuth0();
 
-  const [userProfile, setUserProfile] = useState<any | undefined>();
+  const userProfile = useQuery('userProfile', () => {
+    if (!user) return;
+    return getAccessTokenSilently().then(
+      async (accessToken: string) => await getUserById(user, accessToken),
+    );
+  });
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (!user) return;
+  if (userProfile.isLoading) {
+    return <Skeleton isLoaded={false}></Skeleton>;
+  }
 
-      const token = await getAccessTokenSilently();
-      const userProfile = await getUserById(user, token);
-      if (userProfile) setUserProfile(userProfile);
-    };
-
-    fetchUserProfile().catch(console.error);
-  }, []);
+  if (userProfile.isError) {
+    return <span>Error</span>;
+  }
 
   return (
     <Menu>
@@ -55,13 +58,13 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {userProfile?.role !== 'ADMIN' ? (
+        {userProfile.data?.role !== 'ADMIN' ? (
           <MenuItem
             as={NavLink}
             to={
-              userProfile?.role === 'COMPANY'
-                ? `/companies/${userProfile?.id}`
-                : `/talents/${userProfile?.id}`
+              userProfile.data?.role === 'COMPANY'
+                ? `/companies/${userProfile.data?.id}`
+                : `/talents/${userProfile.data?.id}`
             }
           >
             Profile
