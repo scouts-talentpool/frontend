@@ -22,3 +22,5 @@ export const Error = ({ message }: ErrorProps) => {
     </Box>
   );
 };
+
+export default Error;
