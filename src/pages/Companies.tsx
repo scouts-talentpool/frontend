@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Stack } from '@chakra-ui/react';
+import { Skeleton, Stack } from '@chakra-ui/react';
 import { CompanyCard } from '../components/companies/CompanyCard';
 import { getCompanies } from '../lib/companies';
+import { useQueryClient, useQuery } from 'react-query';
 
 export const Companies = () => {
   const { getAccessTokenSilently } = useAuth0();
-  const [companies, setCompanies] = useState<Array<any>>();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    getAccessTokenSilently().then(async (accessToken: string) => {
-      setCompanies(await getCompanies(accessToken));
-    });
-  }, []);
+  const companies = useQuery('companies', () => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) => await getCompanies(accessToken),
+    );
+  });
+
+  if (companies.isLoading) {
+    return <Skeleton isLoaded={false}></Skeleton>;
+  }
+
+  if (companies.isError) {
+    return <span>Error:</span>;
+  }
 
   return (
     <Stack>
-      {companies?.map((company) => (
+      {companies.data.map((company: any) => (
         <CompanyCard
           id={company.id}
           imgUrl="https://www.horn-company.de/wp-content/uploads/2018/08/cat-banken-versicherungen-final-300x200.jpg"

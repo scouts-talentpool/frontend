@@ -5,6 +5,9 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { ChakraProvider } from '@chakra-ui/react';
 
 import App from './App';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,7 +21,9 @@ ReactDOM.render(
         cacheLocation={'localstorage'}
       >
         <ChakraProvider>
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
         </ChakraProvider>
       </Auth0Provider>
     </Router>
