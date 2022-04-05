@@ -46,12 +46,7 @@ export const Login = () => {
 
   return (
     <Flex width="full" justifyContent="center">
-      <chakra.form
-        onSubmit={(e) => {
-          e.preventDefault();
-          loginMethod.refetch();
-        }}
-      >
+      <chakra.form>
         <FormControl isRequired>
           <InputGroup>
             <InputLeftElement pointerEvents="none" children={<BiUser />} />
@@ -63,7 +58,14 @@ export const Login = () => {
             />
           </InputGroup>
         </FormControl>
-        <Input type="submit" value="Weiter" />
+        <Input
+          type="button"
+          value="Weiter"
+          onClick={(e) => {
+            e.preventDefault();
+            loginMethod.refetch();
+          }}
+        />
       </chakra.form>
     </Flex>
   );
