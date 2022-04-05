@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Skeleton } from '@chakra-ui/react';
+import { Box, Skeleton, chakra } from '@chakra-ui/react';
 
 // Components
 import { Header } from './components/partials/Header';
@@ -16,11 +16,9 @@ function App() {
     <div id="app">
       <Skeleton isLoaded={!isLoading}>
         <Header />
-        <main>
-          <Box bg="gray.50">
-            <Routes />
-          </Box>
-        </main>
+        <chakra.main bg="gray.50">
+          <Routes />
+        </chakra.main>
         <Footer />
       </Skeleton>
     </div>
