@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes as PageRoutes, Route } from 'react-router-dom';
 
-import { ProtectedRoute } from './components/navigation/ProtectedRoute';
+import { ProtectedRoute, AdminProtectedRoute } from './components/navigation/ProtectedRoute';
 
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
@@ -29,7 +29,7 @@ export const Routes = () => {
       <Route path="/talents/:id" element={<TalentProfile />}></Route>
       <Route
         path="/admin"
-        element={<ProtectedRoute outlet={<Admin />} />}
+        element={<AdminProtectedRoute outlet={<Admin />} />}
       ></Route>
       <Route
         path="*"
