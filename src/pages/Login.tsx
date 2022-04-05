@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Input,
@@ -6,6 +6,7 @@ import {
   Heading,
   InputGroup,
   Stack,
+  Container,
   InputLeftElement,
   Box,
   Link,
@@ -13,11 +14,13 @@ import {
   FormHelperText,
   InputRightElement,
   Center,
+  chakra,
+  Skeleton,
 } from '@chakra-ui/react';
-import '../styles/login.css';
-import { FaUserAlt, FaLock } from 'react-icons/fa';
-import { BiShow, BiHide } from 'react-icons/bi';
-import { GoogleLogin } from 'react-google-login';
+import { BiShow, BiHide, BiLock, BiLockAlt, BiUser } from 'react-icons/bi';
+import { useQuery } from 'react-query';
+
+import { findLoginMethodByEmail } from '../lib/users';
 
 // TODO: forgot password
 export const Login = () => {
@@ -25,135 +28,43 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  /*
-   * 1. Enter Email
-   * 2. Get User Role
-   * 3. Show Google/Password
-   */
+  const loginMethod = useQuery(
+    'loginMethod',
+    async () => {
+      return await findLoginMethodByEmail(email);
+    },
+    { enabled: false },
+  );
 
-  const responseGoogle = (res: any) => {
-    console.log(res);
-  };
+  if (loginMethod.isLoading) {
+    return <Skeleton isLoaded={!loginMethod.isLoading} />;
+  }
 
-  const submitEmail = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    setAuthMethod(await getAuthMethod(email));
-  };
-
-  const submitLogin = async (e: SyntheticEvent) => {
-    e.preventDefault();
-    console.log('Logged in: ' + JSON.stringify({ email, password }));
-  };
+  if (loginMethod.isError) {
+    console.log(loginMethod.error);
+  }
 
   return (
-    <Flex
-      flexDirection="column"
-      width="100wh"
-      height="100vh"
-      backgroundColor="gray.200"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Stack
-        flexDir="column"
-        mb="2"
-        justifyContent="center"
-        alignItems="center"
-        onSubmit={submitEmail}
+    <Flex width="full" justifyContent="center">
+      <chakra.form
+        onSubmit={(e) => {
+          e.preventDefault();
+          loginMethod.refetch();
+        }}
       >
-        <Heading>Login</Heading>
-        <Box minW={{ base: '90%', md: '468px' }}>
-          <form>
-            <Stack
-              spacing={4}
-              p="1rem"
-              backgroundColor="whiteAlpha.900"
-              boxShadow="md"
-            >
-              {/* Email */}
-              <FormControl isRequired>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<FaUserAlt style={{ fill: 'lightgray' }} />}
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Email Adresse"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </InputGroup>
-              </FormControl>
-
-              {authMethod != null ? (
-                authMethod === AuthMethod.INTERNAL ? (
-                  // % % Password % %
-                  <FormControl onSubmit={submitLogin}>
-                    <InputGroup>
-                      <InputLeftElement
-                        pointerEvents="none"
-                        color="gray.300"
-                        children={<FaLock style={{ fill: 'lightgray' }} />}
-                      />
-                      <Input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Passwort"
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                        }}
-                      />
-                      <InputRightElement width="3.1rem">
-                        <Button
-                          h="1.75rem"
-                          size="sm"
-                          onClick={() => setShowPassword(!showPassword)}
-                        >
-                          {showPassword ? <BiHide /> : <BiShow />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                    <FormHelperText textAlign="right">
-                      <Link>Passwort vergessen?</Link>
-                    </FormHelperText>
-                  </FormControl>
-                ) : (
-                  // % % Google % %
-                  <Center>
-                    <Flex>
-                      <GoogleLogin
-                        clientId="88947083280-p9vmftafikev3e1m2scct856bdtvj5mm.apps.googleusercontent.com"
-                        render={(renderProps) => (
-                          <Button
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                          >
-                            Weiter mit Google
-                          </Button>
-                        )}
-                        buttonText="Login"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                      />
-                    </Flex>
-                  </Center>
-                )
-              ) : (
-                <></>
-              )}
-
-              <Button
-                borderRadius={0}
-                type="submit"
-                variant="solid"
-                width="full"
-              >
-                Weiter
-              </Button>
-            </Stack>
-          </form>
-        </Box>
-      </Stack>
+        <FormControl isRequired>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none" children={<BiUser />} />
+            <Input
+              type="email"
+              placeholder="max.muster@ict-scouts.ch"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </InputGroup>
+        </FormControl>
+        <Input type="submit" value="Weiter" />
+      </chakra.form>
     </Flex>
   );
 };

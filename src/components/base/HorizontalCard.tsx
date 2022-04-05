@@ -15,7 +15,7 @@ export const HorizontalCard = ({ imgUrl, children }: HorizontalCardProps) => {
         w={{ sm: '100%', md: '540px' }}
         height={{ sm: '476px', md: '18rem' }}
         direction={{ base: 'column', md: 'row' }}
-        bg="#FEFEFE"
+        bg="gray.100"
         boxShadow="md"
         padding={4}
         rounded="0px"

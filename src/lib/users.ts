@@ -43,3 +43,17 @@ export const createUser = async (user: any, accessToken: string) => {
     return null;
   }
 };
+
+export const findLoginMethodByEmail = async (email: string) => {
+  const result = await fetch(
+    `${import.meta.env.VITE_API_URL}/users/role/${email}`,
+    {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      }),
+    },
+  );
+  return await result.json();
+};
