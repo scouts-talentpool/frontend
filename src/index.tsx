@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { ChakraProvider } from '@chakra-ui/react';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import App from './App';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -23,6 +24,7 @@ ReactDOM.render(
         <ChakraProvider>
           <QueryClientProvider client={queryClient}>
             <App />
+            <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>
         </ChakraProvider>
       </Auth0Provider>
