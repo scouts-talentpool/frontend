@@ -21,6 +21,7 @@ import { BiShow, BiHide, BiLock, BiLockAlt, BiUser } from 'react-icons/bi';
 import { useQuery } from 'react-query';
 
 import { findLoginMethodByEmail } from '../lib/users';
+import { DetermineLoginForm } from '@/components/login/DetermineLoginForm';
 
 // TODO: forgot password
 export const Login = () => {
@@ -58,14 +59,23 @@ export const Login = () => {
             />
           </InputGroup>
         </FormControl>
-        <Input
-          type="button"
-          value="Weiter"
-          onClick={(e) => {
-            e.preventDefault();
-            loginMethod.refetch();
-          }}
-        />
+        {loginMethod.isSuccess ? (
+          <FormControl>
+            <DetermineLoginForm
+              userRole={loginMethod.data['role']}
+              email={email}
+            />
+          </FormControl>
+        ) : (
+          <Input
+            type="button"
+            value="Weiter"
+            onClick={(e) => {
+              e.preventDefault();
+              loginMethod.refetch();
+            }}
+          />
+        )}
       </chakra.form>
     </Flex>
   );
