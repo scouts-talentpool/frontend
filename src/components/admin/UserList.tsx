@@ -1,29 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Stack } from '@chakra-ui/react';
-import { getTalents } from '@/lib/talents';
-import { ProfileCard } from '../base/ProfileCard';
+import { Skeleton, Stack } from '@chakra-ui/react';
+import { useQueryClient, useQuery } from 'react-query';
+import { ProfileCard } from '@/components/base/ProfileCard';
+import { getUsers } from '@/lib/users';
 
-export const Companies = () => {
+export const UserList = () => {
   const { getAccessTokenSilently } = useAuth0();
-  const [talents, setTalents] = useState<Array<any>>();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    getAccessTokenSilently().then(async (accessToken: string) => {
-      setTalents(await getTalents(accessToken));
-    });
-  }, []);
+  const users = useQuery('users', () => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) => await getUsers(accessToken),
+    );
+  });
+
+  if (users.isLoading) {
+    return <Skeleton isLoaded={false}></Skeleton>;
+  }
+
+  if (users.isError) {
+    return <span>Error:</span>;
+  }
 
   return (
     <Stack>
-      {talents?.map((talent) => (
+      {users.data.map((user: any) => (
         <ProfileCard
-          id={talent.id}
-          imgUrl="https://www.horn-company.de/wp-content/uploads/2018/08/cat-banken-versicherungen-final-300x200.jpg"
-          title={talent.name}
-          location={talent.location}
+          id={user.id}
+          imgUrl='https://cdn.discordapp.com/attachments/744965735717011468/968422105689522236/unknown.png'
+          title={user.name}
+          location={user.location}
           about={'about lorem ipsum dolor'}
-          key={talent.id}
+          key={user.id}
         />
       ))}
     </Stack>
