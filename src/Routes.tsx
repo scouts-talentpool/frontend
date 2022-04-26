@@ -1,23 +1,27 @@
 import React from 'react';
-import { Routes as PageRoutes, Route } from 'react-router-dom';
+import { Routes as PageRoutes, Route, Navigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
-import { ProtectedRoute, AdminProtectedRoute } from './components/navigation/ProtectedRoute';
+import {
+  ProtectedRoute,
+  AdminProtectedRoute,
+} from './components/navigation/ProtectedRoute';
 
 import { Home } from './pages/Home';
-import { Login } from './pages/Login';
 import { Talents } from './pages/Talents';
 import { TalentProfile } from './pages/TalentProfile';
 import { Settings } from './pages/Settings';
-import { Companies } from './pages/Companies.tsx';
+import { Companies } from './pages/Companies';
 import { CompanyDetails } from './pages/CompanyDetails';
 import { Admin } from './pages/Admin/Admin';
 import { Error } from './pages/Error';
 
 export const Routes = () => {
+  const { loginWithRedirect } = useAuth0();
+
   return (
     <PageRoutes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
       <Route path=""></Route>
       <Route
         path="/settings"

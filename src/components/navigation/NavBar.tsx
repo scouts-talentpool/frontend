@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 
 export const NavBar = () => {
-  const { user } = useAuth0();
+  const { user, loginWithRedirect } = useAuth0();
 
   return (
     <Flex justifyContent="center" alignItems="center">
@@ -16,7 +16,7 @@ export const NavBar = () => {
           Firmen
         </Link>
         {!user ? (
-          <Link to={'/login'} as={NavLink}>
+          <Link to="" onClick={loginWithRedirect} as={NavLink}>
             Login
           </Link>
         ) : (

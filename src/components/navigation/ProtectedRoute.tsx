@@ -16,7 +16,7 @@ export const ProtectedRoute = ({ outlet }: ProtectedRouteProps) => {
     useAuth0();
 
   const toast = useToast();
-  const toast_id = 'unauthorized-warning';
+  const toast_id = 'unauthenticated-warning';
 
   if (isAuthenticated || isLoading) {
     return outlet;
