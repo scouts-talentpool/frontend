@@ -16,15 +16,22 @@ export const TalentProfile = () => {
 
   const { getAccessTokenSilently } = useAuth0();
 
+  const user = useQuery('user', async () => {
+    return getAccessTokenSilently().then(async (accessToken: string) => {
+      return await client.users
+        ._id(id!)
+        .$get({ headers: { Authorization: `Bearer ${accessToken}` } });
+    });
+  });
+
   const profile = useQuery('profile', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.talents._id(id!).$get({
+        await client.talents._id(user.data?.talentProfileId?.toString()!).$get({
           headers: { Authorization: `Bearer ${accessToken}` },
         }),
     );
   });
-  console.log(profile.data);
 
   if (profile.isLoading) {
     return <Skeleton isLoaded={false} />;

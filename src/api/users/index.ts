@@ -7,8 +7,8 @@ enum Role {
 export type User = {
   id: string;
   role: Role;
-  talentProfileId?: number;
-  companyProfileId?: number;
+  talentProfileId?: string;
+  companyProfileId?: string;
 };
 
 export type Methods = {
