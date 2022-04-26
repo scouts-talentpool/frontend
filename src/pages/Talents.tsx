@@ -28,7 +28,7 @@ export const Talents = () => {
       {talents.data.map((talent: any) => (
         <ProfileCard
           id={talent.id}
-          imgUrl="https://www.horn-talent.de/wp-content/uploads/2018/08/cat-banken-versicherungen-final-300x200.jpg"
+          imgUrl='https://cdn.discordapp.com/attachments/744965735717011468/968422105689522236/unknown.png'
           title={talent.name}
           location={talent.location}
           about={'about lorem ipsum dolor'}
