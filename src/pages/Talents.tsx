@@ -3,39 +3,34 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { Skeleton, Stack } from '@chakra-ui/react';
 import { Error } from '@/pages/Error';
 import { getTalents } from '../lib/talents';
-import { useQueryClient } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useAspidaQuery } from '@aspida/react-query';
 import { ProfileCard } from '@/components/base/ProfileCard';
 import { TalentProfile } from '@/api/talents';
-import axios from 'axios';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 
 export const Talents = () => {
-  const { isLoading, getAccessTokenSilently } = useAuth0();
+  const client = api(aspida());
 
-  const [accessToken, setAccessToken] = useState('');
-  (async () => {
-    setAccessToken(await getAccessTokenSilently());
-  })();
+  const { getAccessTokenSilently } = useAuth0();
 
-  const client = api(
-    aspida(axios, {
-      headers: {
-        Authorization: accessToken,
-      },
-    }),
-  );
+  const talents = useQuery('talents', async () => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) =>
+        await client.talents.$get({
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }),
+    );
+  });
 
-  const [talents, setTalents] = useState<TalentProfile[]>([]);
-  useEffect(() => {
-    const talents = useAspidaQuery(client.talents, {});
-    setTalents(talents.data!);
-  }, []);
+  if (talents.isLoading) return <Skeleton isLoaded={false} />;
+
+  if (talents.isError) return <Error message="Ein Fehler ist aufgetreten." />;
 
   return (
     <Stack>
-      {talents.map((talent) => (
+      {talents.data?.map((talent) => (
         <ProfileCard
           id={talent.id}
           imgUrl="https://cdn.discordapp.com/attachments/744965735717011468/968422105689522236/unknown.png"
