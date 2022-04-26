@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Stack } from '@chakra-ui/react';
-import { getUsers } from '@/lib/users';
-import { CompanyCard } from '../companies/CompanyCard';
-import { TalentCard } from '../talents/TalentCard';
+import { getTalents } from '@/lib/talents';
+import { ProfileCard } from '../base/ProfileCard';
 
 export const Companies = () => {
   const { getAccessTokenSilently } = useAuth0();
-  const [users, setUsers] = useState<Array<any>>();
+  const [talents, setTalents] = useState<Array<any>>();
 
   useEffect(() => {
     getAccessTokenSilently().then(async (accessToken: string) => {
-      setUsers(await getUsers(accessToken));
+      setTalents(await getTalents(accessToken));
     });
   }, []);
 
   return (
     <Stack>
-      {users?.map((user) => (
-        <TalentCard
-          id={user.id}
+      {talents?.map((talent) => (
+        <ProfileCard
+          id={talent.id}
           imgUrl="https://www.horn-company.de/wp-content/uploads/2018/08/cat-banken-versicherungen-final-300x200.jpg"
-          name={user.name}
-          location={user.location}
+          title={talent.name}
+          location={talent.location}
           about={'about lorem ipsum dolor'}
-          key={user.id}
+          key={talent.id}
         />
       ))}
     </Stack>

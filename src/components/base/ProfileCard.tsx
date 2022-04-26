@@ -4,7 +4,7 @@ import HorizontalCard from '../base/HorizontalCard';
 import { Heading, Stack, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-type CompanyCardProps = {
+type ProfileCardProps = {
   id: string;
   imgUrl: string;
   title: string;
@@ -13,14 +13,14 @@ type CompanyCardProps = {
   linkPrefix?: string;
 };
 
-export const CompanyCard = ({
+export const ProfileCard = ({
   id,
   imgUrl,
   title,
   location,
   about,
   linkPrefix,
-}: CompanyCardProps) => {
+}: ProfileCardProps) => {
   return (
     <HorizontalCard imgUrl={imgUrl}>
       {/* Title */}
@@ -66,3 +66,4 @@ export const CompanyCard = ({
     </HorizontalCard>
   );
 };
+
