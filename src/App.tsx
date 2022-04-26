@@ -16,7 +16,7 @@ function App() {
     <div id="app">
       <Skeleton isLoaded={!isLoading}>
         <Header />
-        <chakra.main bg="gray.50">
+        <chakra.main bg="gray.50" height="100vh" py="2.5rem">
           <Routes />
         </chakra.main>
         <Footer />

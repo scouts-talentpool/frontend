@@ -73,10 +73,6 @@ export const NavMenu = () => {
           <></>
         )}
 
-        <MenuItem as={NavLink} to="/settings">
-          Einstellungen
-        </MenuItem>
-
         <MenuItem onClick={() => logout()}>Logout</MenuItem>
       </MenuList>
     </Menu>

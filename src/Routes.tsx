@@ -10,7 +10,6 @@ import {
 import { Home } from './pages/Home';
 import { Talents } from './pages/Talents';
 import { TalentProfile } from './pages/TalentProfile';
-import { Settings } from './pages/Settings';
 import { Companies } from './pages/Companies';
 import { CompanyDetails } from './pages/CompanyDetails';
 import { Admin } from './pages/Admin/Admin';
@@ -22,23 +21,18 @@ export const Routes = () => {
   return (
     <PageRoutes>
       <Route path="/" element={<Home />} />
-      <Route path=""></Route>
-      <Route
-        path="/settings"
-        element={<ProtectedRoute outlet={<Settings />} />}
-      />
-      <Route path="/companies" element={<Companies />}></Route>
-      <Route path="/companies/:id" element={<CompanyDetails />}></Route>
-      <Route path="/talents" element={<Talents />}></Route>
-      <Route path="/talents/:id" element={<TalentProfile />}></Route>
+      <Route path="/companies" element={<Companies />} />
+      <Route path="/companies/:id" element={<CompanyDetails />} />
+      <Route path="/talents" element={<Talents />} />
+      <Route path="/talents/:id" element={<TalentProfile />} />
       <Route
         path="/admin"
         element={<AdminProtectedRoute outlet={<Admin />} />}
-      ></Route>
+      />
       <Route
         path="*"
         element={<Error message="Diese Seite konnte nicht gefunden werden." />}
-      ></Route>
+      />
     </PageRoutes>
   );
 };
