@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Stack } from '@chakra-ui/react';
 import { getCompanies } from '@/lib/companies';
-import { CompanyCard } from '../companies/CompanyCard';
+import { ProfileCard } from '../base/ProfileCard';
 
 export const Companies = () => {
   const { getAccessTokenSilently } = useAuth0();
@@ -17,7 +17,7 @@ export const Companies = () => {
   return (
     <Stack>
       {companies?.map((company) => (
-        <CompanyCard
+        <ProfileCard
           id={company.id}
           imgUrl="https://www.horn-company.de/wp-content/uploads/2018/08/cat-banken-versicherungen-final-300x200.jpg"
           title={company.name}
