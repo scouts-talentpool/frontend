@@ -8,7 +8,7 @@ import { NavBar } from '../navigation/NavBar';
 import { NavMenu } from '../navigation/NavMenu';
 
 export const Header = () => {
-  const { user } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <header>
@@ -20,7 +20,7 @@ export const Header = () => {
 
           <Stack direction="row" spacing={5}>
             <NavBar />
-            {user ? <NavMenu /> : <></>}
+            {isAuthenticated ? <NavMenu /> : <></>}
           </Stack>
         </Flex>
       </Box>
