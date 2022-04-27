@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Skeleton, Stack } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
-import { ProfileCard } from '@/components/base/ProfileCard';
+import { ProfileCard } from '@/components/common/ProfileCard';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
