@@ -1,12 +1,8 @@
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import { Skeleton } from '@chakra-ui/react';
-import { UserDetails } from '@/components/admin/UserDetails';
-import { Error } from '@/pages/Error';
 import { useAuth0 } from '@auth0/auth0-react';
-import { useAspidaQuery } from '@aspida/react-query';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
-import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 export const TalentProfile = () => {
@@ -38,7 +34,7 @@ export const TalentProfile = () => {
   }
 
   if (profile.isError) {
-    return <Error message="Es ist ein Fehler aufgetreten." />;
+    return <Navigate to={`/error?message=${profile.error}`} />;
   }
 
   return (

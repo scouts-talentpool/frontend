@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Skeleton, Stack } from '@chakra-ui/react';
-import { Error } from '@/pages/Error';
-import { getTalents } from '../lib/talents';
-import { useQuery, useQueryClient } from 'react-query';
-import { useAspidaQuery } from '@aspida/react-query';
+import { useQuery } from 'react-query';
 import { ProfileCard } from '@/components/base/ProfileCard';
-import { TalentProfile } from '@/api/talents';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
+import { Navigate } from 'react-router-dom';
 
 export const Talents = () => {
   const client = api(aspida());
@@ -26,8 +23,9 @@ export const Talents = () => {
 
   if (talents.isLoading) return <Skeleton isLoaded={false} />;
 
-  if (talents.isError) return <Error message="Ein Fehler ist aufgetreten." />;
-
+  if (talents.isError) {
+    return <Navigate to={`/error?message=${talents.error}`} />;
+  }
   return (
     <Stack>
       {talents.data?.map((talent) => (
