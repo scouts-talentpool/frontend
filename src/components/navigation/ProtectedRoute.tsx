@@ -1,78 +1,51 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate } from 'react-router-dom';
-import { useToast } from '@chakra-ui/react';
-import { useEffect } from 'react';
-import { findLoginMethodByEmail } from '../../lib/users';
+import { Skeleton } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
-import { Error } from '../../pages/Error';
 import { Role } from '@/api/users';
+import aspida from '@aspida/axios';
+import api from '@/api/$api';
 
 type ProtectedRouteProps = {
   outlet: JSX.Element;
 };
 
 export const ProtectedRoute = ({ outlet }: ProtectedRouteProps) => {
-  const { isLoading, getAccessTokenSilently, user, isAuthenticated } =
-    useAuth0();
+  const { isAuthenticated } = useAuth0();
 
-  const toast = useToast();
-  const toast_id = 'unauthenticated-warning';
-
-  if (isAuthenticated || isLoading) {
+  if (isAuthenticated) {
     return outlet;
-  } else {
-    useEffect(() => {
-      if (!toast.isActive(toast_id)) {
-        toast({
-          title: 'Sie müssen sich zuerst anmelden.',
-          position: 'top',
-          isClosable: true,
-          status: 'warning',
-          id: toast_id,
-        });
-      }
-    }, []);
-
-    return <Navigate to="/login" />;
   }
+
+  return <Navigate to="/login" />;
 };
 
 export const AdminProtectedRoute = ({ outlet }: ProtectedRouteProps) => {
-  const { user, isAuthenticated } = useAuth0();
+  const client = api(aspida());
 
-  const toast = useToast();
-  const toast_id = 'unauthorized-warning';
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  const role = useQuery('role', () => {
-    return findLoginMethodByEmail(user?.email!);
-  });
-  
-  if (role.isError) {
-    return (
-      <Error message="Sie haben keine Rechte um auf diesen teil der Seite zu kommen." />
+  const userDetails = useQuery('user', async () => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) =>
+        await client.users._id(user?.sub?.split('|')[1]!).$get({
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }),
     );
+  });
+
+  if (userDetails.isLoading) {
+    return <Skeleton isLoaded={false} />;
   }
 
-  console.log(user?.data.role)
-  console.log(role)
+  if (userDetails.isError) {
+    return <Navigate to={`/error?message=${userDetails.error}`} />;
+  }
 
-  if (isAuthenticated && user?.data.role == Role.ADMIN) {
+  if (isAuthenticated && userDetails?.data?.role! === Role.ADMIN) {
     return outlet;
-  } else {
-    useEffect(() => {
-      if (!toast.isActive(toast_id)) {
-        toast({
-          title:
-            'Sie haben keine Rechte um auf diesen teil der Seite zu kommen.',
-          position: 'top',
-          isClosable: true,
-          status: 'warning',
-          id: toast_id,
-        });
-      }
-    }, []);
-
-    return <Navigate to="/" />;
   }
+
+  return <Navigate to={`/error?message=${userDetails.error}`} />;
 };

@@ -11,7 +11,7 @@ import {
   Skeleton,
 } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Role } from '@/api/users';
@@ -38,7 +38,7 @@ export const NavMenu = () => {
   }
 
   if (userDetails.isError) {
-    return <Error message="Ein Fehler ist aufgetreten." />;
+    return <Navigate to={`/error?message=${userDetails.error}`} />;
   }
 
   return (
