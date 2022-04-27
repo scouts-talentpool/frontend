@@ -8,12 +8,11 @@ export const CompaniesPanel = () => {
     <>
       {/* actions */}
       <Box
-        bg={'gray.100'} 
+        bg={'gray.100'}
         m={4}
         p={0}
         borderWidth="1px"
         borderRadius="lg"
-        direction={{ base: 'column', md: 'row' }}
         boxShadow="md"
         padding={4}
         rounded="0px"
