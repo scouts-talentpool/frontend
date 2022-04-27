@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { findLoginMethodByEmail } from '../../lib/users';
 import { useQuery } from 'react-query';
 import { Error } from '../../pages/Error';
+import { Role } from '@/api/users';
 
 type ProtectedRouteProps = {
   outlet: JSX.Element;
@@ -46,14 +47,17 @@ export const AdminProtectedRoute = ({ outlet }: ProtectedRouteProps) => {
   const role = useQuery('role', () => {
     return findLoginMethodByEmail(user?.email!);
   });
-
+  
   if (role.isError) {
     return (
       <Error message="Sie haben keine Rechte um auf diesen teil der Seite zu kommen." />
     );
   }
 
-  if (isAuthenticated && role.data.role == 'ADMIN') {
+  console.log(user?.data.role)
+  console.log(role)
+
+  if (isAuthenticated && user?.data.role == Role.ADMIN) {
     return outlet;
   } else {
     useEffect(() => {
