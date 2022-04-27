@@ -33,6 +33,7 @@ export const Routes = () => {
         path="*"
         element={<Error message="Diese Seite konnte nicht gefunden werden." />}
       />
+      <Route path="/error" element={<Error />} />
     </PageRoutes>
   );
 };
