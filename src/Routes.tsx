@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes as PageRoutes, Route } from 'react-router-dom';
+import { Routes as PageRoutes, Route, useParams } from 'react-router-dom';
 
 import {
   ProtectedRoute,
@@ -13,6 +13,7 @@ import { Companies } from './pages/Companies';
 import { CompanyProfile } from './pages/CompanyProfile';
 import { Admin } from './pages/Admin';
 import { Error } from './pages/Error';
+import { MyProfile } from './pages/MyProfile';
 
 export const Routes = () => {
   return (
@@ -22,6 +23,7 @@ export const Routes = () => {
       <Route path="/companies/:id" element={<CompanyProfile />} />
       <Route path="/talents" element={<Talents />} />
       <Route path="/talents/:id" element={<TalentProfile />} />
+      <Route path="/me" element={<MyProfile />} />
       <Route
         path="/admin"
         element={<AdminProtectedRoute outlet={<Admin />} />}

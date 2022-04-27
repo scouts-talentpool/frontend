@@ -14,7 +14,7 @@ export const TalentProfile = () => {
   const queryClient = useQueryClient();
   const { getAccessTokenSilently } = useAuth0();
 
-  const profile = useQuery('profile', async () => {
+  const talent = useQuery('talent', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
         await client.talents._id(id!).$get({
@@ -24,20 +24,20 @@ export const TalentProfile = () => {
   });
 
   useEffect(() => {
-    queryClient.invalidateQueries('profile');
+    queryClient.invalidateQueries('talent');
   }, [id]);
 
-  if (profile.isLoading) {
+  if (talent.isLoading) {
     return <Skeleton isLoaded={false} />;
   }
 
-  if (profile.isError) {
-    return <Navigate to={`/error?message=${profile.error}`} />;
+  if (talent.isError) {
+    return <Navigate to={`/error?message=${talent.error}`} />;
   }
 
   return (
     <div>
-      Hello {profile.data?.firstname} {profile.data?.lastname}
+      Hello {talent.data?.firstname} {talent.data?.lastname}
     </div>
   );
 };

@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 16384,
+      staleTime: 60 * 60 * 1000,
     },
   },
 });

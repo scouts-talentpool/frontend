@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Menu,
   MenuButton,
@@ -33,6 +33,10 @@ export const NavMenu = () => {
     );
   });
 
+  useEffect(() => {
+    queryClient.invalidateQueries('me');
+  }, [user]);
+
   if (userDetails.isLoading) {
     return <Skeleton isLoaded={false}></Skeleton>;
   }
@@ -66,14 +70,7 @@ export const NavMenu = () => {
         <MenuDivider />
 
         {userDetails.data?.role! !== Role.ADMIN ? (
-          <MenuItem
-            as={NavLink}
-            to={
-              userDetails.data?.role! === Role.COMPANY
-                ? `/companies/${userDetails.data?.companyProfileId}`
-                : `/talents/${userDetails.data?.talentProfileId}`
-            }
-          >
+          <MenuItem as={NavLink} to="/me">
             Mein Profil
           </MenuItem>
         ) : (
