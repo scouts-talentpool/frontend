@@ -1,6 +1,7 @@
 import React from 'react';
-import { CreateUserDialog } from '../components/admin/CreateUserDialog';
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { AdminNavigation } from '@/components/admin/AdminNavigation';
 
 export const Admin = () => {
-  return <CreateUserDialog />;
+  return <h1>Hello boeg</h1>;
 };
