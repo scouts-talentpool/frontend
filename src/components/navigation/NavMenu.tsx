@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Menu,
   MenuButton,
@@ -12,26 +12,33 @@ import {
 } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { NavLink } from 'react-router-dom';
-
-import { getUserById } from '../../lib/users';
-import { useQuery } from 'react-query';
+import aspida from '@aspida/axios';
+import api from '@/api/$api';
+import { Role } from '@/api/users';
+import { Error } from '@/pages/Error';
+import { useQuery, useQueryClient } from 'react-query';
 
 export const NavMenu = () => {
-  const { user, logout, getAccessTokenSilently } = useAuth0();
+  const client = api(aspida());
 
-  const userProfile = useQuery('userProfile', () => {
-    if (!user) return;
+  const { user, logout, getAccessTokenSilently } = useAuth0();
+  const queryClient = useQueryClient();
+
+  const userDetails = useQuery('user', async () => {
     return getAccessTokenSilently().then(
-      async (accessToken: string) => await getUserById(user, accessToken),
+      async (accessToken: string) =>
+        await client.users._id(user?.sub?.split('|')[1]!).$get({
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }),
     );
   });
 
-  if (userProfile.isLoading) {
+  if (userDetails.isLoading) {
     return <Skeleton isLoaded={false}></Skeleton>;
   }
 
-  if (userProfile.isError) {
-    return <span>Error</span>;
+  if (userDetails.isError) {
+    return <Error message="Ein Fehler ist aufgetreten." />;
   }
 
   return (
@@ -58,22 +65,30 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {userProfile.data?.role !== 'ADMIN' ? (
+        {userDetails.data?.role! !== Role.ADMIN ? (
           <MenuItem
             as={NavLink}
             to={
-              userProfile.data?.role === 'COMPANY'
-                ? `/companies/${userProfile.data?.id}`
-                : `/talents/${userProfile.data?.id}`
+              userDetails.data?.role! === Role.COMPANY
+                ? `/companies/${userDetails.data?.companyProfileId}`
+                : `/talents/${userDetails.data?.talentProfileId}`
             }
           >
-            Profile
+            Mein Profil
           </MenuItem>
         ) : (
           <></>
         )}
 
-        <MenuItem onClick={() => logout()}>Logout</MenuItem>
+        <MenuItem
+          onClick={() => {
+            logout();
+            queryClient.invalidateQueries('profile');
+            queryClient.invalidateQueries('user');
+          }}
+        >
+          Abmelden
+        </MenuItem>
       </MenuList>
     </Menu>
   );
