@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stack, Tabs, TabList, Tab } from '@chakra-ui/react';
+import { TabList, Tab } from '@chakra-ui/react';
 
 export const AdminNavigation = () => {
   return (
