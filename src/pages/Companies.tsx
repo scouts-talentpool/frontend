@@ -1,6 +1,6 @@
-import React from 'react'
-import { CompanyList } from '../components/common/CompanyList'
+import React from 'react';
+import { CompanyList } from '@/components/common/CompanyList';
 
 export const Companies = () => {
-    return <CompanyList />
-}
+  return <CompanyList />;
+};

@@ -8,8 +8,8 @@ type TalentProps = {
 
 export const Talent = ({ talent }: TalentProps) => {
   return (
-    <LinkBox>
-      <Flex alignItems="center" justifyContent="space-evenly">
+    <LinkBox bg="gray.200" p="4">
+      <Flex alignItems="center" justifyContent="left">
         <Heading size="sm">
           <LinkOverlay href={`/talents/${talent.id}`}>
             {talent.firstname} {talent.lastname}
