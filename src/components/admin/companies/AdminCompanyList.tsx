@@ -32,7 +32,7 @@ export const AdminCompanyList = () => {
   return (
     <Stack>
       {companies.data?.map((company) => (
-        <Flex alignItems="center">
+        <Flex alignItems="center" key={company.id}>
           <Checkbox></Checkbox>
           <Box width="100%" ml="4">
             <Company key={company.id} company={company} />
