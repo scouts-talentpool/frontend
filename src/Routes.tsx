@@ -10,7 +10,7 @@ import { Home } from './pages/Home';
 import { Talents } from './pages/Talents';
 import { TalentProfile } from './pages/TalentProfile';
 import { Companies } from './pages/Companies';
-import { CompanyDetails } from './pages/CompanyDetails';
+import { CompanyProfile } from './pages/CompanyProfile';
 import { Admin } from './pages/Admin';
 import { Error } from './pages/Error';
 
@@ -19,7 +19,7 @@ export const Routes = () => {
     <PageRoutes>
       <Route path="/" element={<Home />} />
       <Route path="/companies" element={<Companies />} />
-      <Route path="/companies/:id" element={<CompanyDetails />} />
+      <Route path="/companies/:id" element={<CompanyProfile />} />
       <Route path="/talents" element={<Talents />} />
       <Route path="/talents/:id" element={<TalentProfile />} />
       <Route

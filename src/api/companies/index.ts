@@ -1,4 +1,4 @@
-export type Company = {
+export type CompanyProfile = {
   id: string;
   name: string;
   location: string;
@@ -6,7 +6,7 @@ export type Company = {
 
 export type Methods = {
   get: {
-    resBody: Company[];
+    resBody: CompanyProfile[];
     reqHeaders: {
       Authorization: string;
     };

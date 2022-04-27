@@ -1,21 +1,21 @@
-import { Company } from '..';
+import { CompanyProfile } from '..';
 
 export type Methods = {
   get: {
-    resBody: Company;
+    resBody: CompanyProfile;
     reqHeaders: {
       Authorization: string;
     };
   };
   patch: {
-    resBody: Company;
-    reqBody: Company;
+    resBody: CompanyProfile;
+    reqBody: CompanyProfile;
     reqHeaders: {
       Authorization: string;
     };
   };
   delete: {
-    resBody: Company;
+    resBody: CompanyProfile;
     reqHeaders: {
       Authorization: string;
     };

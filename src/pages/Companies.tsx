@@ -2,9 +2,10 @@ import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Skeleton, Stack } from '@chakra-ui/react';
 import { useQuery } from 'react-query';
-import { ProfileCard } from '@/components/common/ProfileCard';
+import { Company } from '@/components/common/Company';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
+import { Navigate } from 'react-router-dom';
 
 export const Companies = () => {
   const client = api(aspida());
@@ -25,20 +26,13 @@ export const Companies = () => {
   }
 
   if (companies.isError) {
-    return <span>Error:</span>;
+    return <Navigate to={`/error?message=${companies.error}`} />;
   }
 
   return (
     <Stack>
       {companies.data?.map((company) => (
-        <ProfileCard
-          id={company.id}
-          imgUrl="https://www.horn-company.de/wp-content/uploads/2018/08/cat-banken-versicherungen-final-300x200.jpg"
-          title={company.name}
-          location={company.location}
-          about={'about lorem ipsum dolor'}
-          key={company.id}
-        />
+        <Company key={company.id} company={company} />
       ))}
     </Stack>
   );

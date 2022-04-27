@@ -6,7 +6,7 @@ import api from '@/api/$api';
 import { useQuery, useQueryClient } from 'react-query';
 import { useEffect } from 'react';
 
-export const TalentProfile = () => {
+export const CompanyProfile = () => {
   const client = api(aspida());
 
   const { id } = useParams();
@@ -14,30 +14,26 @@ export const TalentProfile = () => {
   const queryClient = useQueryClient();
   const { getAccessTokenSilently } = useAuth0();
 
-  const profile = useQuery('profile', async () => {
+  const company = useQuery('company', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.talents._id(id!).$get({
+        await client.companies._id(id!).$get({
           headers: { Authorization: `Bearer ${accessToken}` },
         }),
     );
   });
 
   useEffect(() => {
-    queryClient.invalidateQueries('profile');
+    queryClient.invalidateQueries('company');
   }, [id]);
 
-  if (profile.isLoading) {
+  if (company.isLoading) {
     return <Skeleton isLoaded={false} />;
   }
 
-  if (profile.isError) {
-    return <Navigate to={`/error?message=${profile.error}`} />;
+  if (company.isError) {
+    return <Navigate to={`/error?message=${company.error}`} />;
   }
 
-  return (
-    <div>
-      Hello {profile.data?.firstname} {profile.data?.lastname}
-    </div>
-  );
+  return <div>Hello {company.data?.name}</div>;
 };

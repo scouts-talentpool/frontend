@@ -26,7 +26,7 @@ export const AdminProtectedRoute = ({ outlet }: ProtectedRouteProps) => {
 
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  const userDetails = useQuery('user', async () => {
+  const userDetails = useQuery('me', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
         await client.users._id(user?.sub?.split('|')[1]!).$get({

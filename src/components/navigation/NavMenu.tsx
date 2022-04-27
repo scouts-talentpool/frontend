@@ -24,7 +24,7 @@ export const NavMenu = () => {
   const { user, logout, getAccessTokenSilently } = useAuth0();
   const queryClient = useQueryClient();
 
-  const userDetails = useQuery('user', async () => {
+  const userDetails = useQuery('me', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
         await client.users._id(user?.sub?.split('|')[1]!).$get({
@@ -83,8 +83,7 @@ export const NavMenu = () => {
         <MenuItem
           onClick={() => {
             logout();
-            queryClient.invalidateQueries('profile');
-            queryClient.invalidateQueries('user');
+            queryClient.invalidateQueries('me');
           }}
         >
           Abmelden
