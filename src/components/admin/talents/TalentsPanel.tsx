@@ -32,7 +32,6 @@ export const TalentsPanel = () => {
   const [editLastName, setEditLastName] = useState<string | undefined>('Muster');
   const [editEmail, setEditEmail] = useState<string | undefined>('max@muster.com');
 
-
   return (
     <>
       <Heading size="md" mb="4">
@@ -61,27 +60,7 @@ export const TalentsPanel = () => {
         isOpen={createModalIsOpen}
         onClose={() => setCreateModalIsOpen(false)}
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Talent Hinzufügen</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            Lorem ipsum lalaldsklds ipsumipsu lmipsumipsumipsumipsum
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              variant="ghost"
-              colorScheme="blue"
-              mr={3}
-              onClick={() => setCreateModalIsOpen(false)}
-            >
-              Abbrechen
-            </Button>
-            <Button colorScheme="blue">Hinzufügen</Button>
-          </ModalFooter>
-        </ModalContent>
-
+        <ModalHeader>Talent Hinzufügen</ModalHeader>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Talent Hinzufügen</ModalHeader>
@@ -114,10 +93,9 @@ export const TalentsPanel = () => {
                       w="full"
                       rounded="0px"
                       defaultValue={createFirstName}
-                      onChange={(c) => setCreateFirstName(c.target.value)}
+                      onChange={(c) => setCreateFistName(c.target.value)}
                     />
                   </FormControl>
-
                   <FormControl as={StackItem}>
                     <FormLabel
                       htmlFor="last_name"
@@ -140,7 +118,6 @@ export const TalentsPanel = () => {
                       onChange={(c) => setCreateLastName(c.target.value)}
                     />
                   </FormControl>
-
                   <FormControl as={StackItem}>
                     <FormLabel
                       htmlFor="email_address"
@@ -166,7 +143,6 @@ export const TalentsPanel = () => {
                 </Stack>
               </Stack>
             </ModalBody>
-
           <ModalFooter>
             <Button
               variant="ghost"
@@ -218,7 +194,6 @@ export const TalentsPanel = () => {
                       onChange={(c) => setEditFirstName(c.target.value)}
                     />
                   </FormControl>
-
                   <FormControl as={StackItem}>
                     <FormLabel
                       htmlFor="last_name"
@@ -241,7 +216,6 @@ export const TalentsPanel = () => {
                       onChange={(c) => setEditLastName(c.target.value)}
                     />
                   </FormControl>
-
                   <FormControl as={StackItem}>
                     <FormLabel
                       htmlFor="email_address"
@@ -267,7 +241,6 @@ export const TalentsPanel = () => {
                 </Stack>
               </Stack>
             </ModalBody>
-
             <ModalFooter>
               <Button
                 variant="ghost"
@@ -287,7 +260,7 @@ export const TalentsPanel = () => {
       </Modal>
 
       <Box>
-        <AdminTalentList />
+        <AdminTalentList checkboxProps={getCheckboxProps} />
       </Box>
     </>
   );

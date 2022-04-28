@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  LinkBox,
-  Flex,
-  Text,
-  Heading,
-} from '@chakra-ui/react';
+import { LinkBox, Flex, Text, Heading } from '@chakra-ui/react';
 import { User } from '@/api/users';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
