@@ -16,8 +16,6 @@ import {
   FormControl,
   FormLabel,
   StackItem,
-  Image,
-  Flex,
   Input,
 } from '@chakra-ui/react';
 import { BaseButton } from '@/components/base/BaseButton';
