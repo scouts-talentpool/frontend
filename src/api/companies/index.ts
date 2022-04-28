@@ -10,5 +10,9 @@ export type Methods = {
     reqHeaders: {
       Authorization: string;
     };
+    query?: {
+      take: number;
+      cursor: number;
+    };
   };
 };

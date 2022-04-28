@@ -38,11 +38,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           $path: () => `${prefix}${prefix1}`
         }
       },
-      get: (option: { headers: Methods0['get']['reqHeaders'], config?: T | undefined }) =>
+      get: (option: { query?: Methods0['get']['query'] | undefined, headers: Methods0['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods0['get']['resBody']>(prefix, PATH0, GET, option).json(),
-      $get: (option: { headers: Methods0['get']['reqHeaders'], config?: T | undefined }) =>
+      $get: (option: { query?: Methods0['get']['query'] | undefined, headers: Methods0['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods0['get']['resBody']>(prefix, PATH0, GET, option).json().then(r => r.body),
-      $path: () => `${prefix}${PATH0}`
+      $path: (option?: { method?: 'get' | undefined; query: Methods0['get']['query'] } | undefined) =>
+        `${prefix}${PATH0}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     },
     talents: {
       _id: (val1: string) => {
@@ -64,15 +65,16 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           $path: () => `${prefix}${prefix1}`
         }
       },
-      get: (option: { headers: Methods2['get']['reqHeaders'], config?: T | undefined }) =>
+      get: (option: { query?: Methods2['get']['query'] | undefined, headers: Methods2['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods2['get']['resBody']>(prefix, PATH1, GET, option).json(),
-      $get: (option: { headers: Methods2['get']['reqHeaders'], config?: T | undefined }) =>
+      $get: (option: { query?: Methods2['get']['query'] | undefined, headers: Methods2['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods2['get']['resBody']>(prefix, PATH1, GET, option).json().then(r => r.body),
       post: (option: { body: Methods2['post']['reqBody'], headers: Methods2['post']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods2['post']['resBody']>(prefix, PATH1, POST, option).json(),
       $post: (option: { body: Methods2['post']['reqBody'], headers: Methods2['post']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods2['post']['resBody']>(prefix, PATH1, POST, option).json().then(r => r.body),
-      $path: () => `${prefix}${PATH1}`
+      $path: (option?: { method?: 'get' | undefined; query: Methods2['get']['query'] } | undefined) =>
+        `${prefix}${PATH1}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     },
     users: {
       _id: (val1: string) => {
