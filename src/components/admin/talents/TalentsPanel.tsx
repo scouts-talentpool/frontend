@@ -1,19 +1,20 @@
 import React from 'react';
-import { Box, HStack } from '@chakra-ui/react';
+import { Box, Heading, HStack } from '@chakra-ui/react';
 import { BaseButton } from '@/components/base/BaseButton';
-import { TalentList } from '@/components/common/TalentList'
+import { AdminTalentList } from './AdminTalentList';
 
 export const TalentsPanel = () => {
   return (
     <>
+      <Heading size="md" mb="4">
+        Talente verwalten
+      </Heading>
 
       <Box
-        bg={'gray.200'}
+        bg={'gray.100'}
         mb={4}
         p={0}
-        // borderWidth="1px"
         borderRadius="lg"
-        // boxShadow="md"
         padding={4}
         rounded="0px"
       >
@@ -24,7 +25,7 @@ export const TalentsPanel = () => {
       </Box>
 
       <Box>
-          <TalentList />
+        <AdminTalentList />
       </Box>
     </>
   );
