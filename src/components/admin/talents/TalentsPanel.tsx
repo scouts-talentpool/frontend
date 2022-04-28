@@ -164,7 +164,6 @@ export const TalentsPanel = () => {
                     />
                   </FormControl>
                 </Stack>
-                {/* <Button type='submit'>Speichern</Button> */}
               </Stack>
             </ModalBody>
 
