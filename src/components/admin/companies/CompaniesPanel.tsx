@@ -6,9 +6,6 @@ import { useCheckboxGroup } from '@chakra-ui/react';
 
 export const CompaniesPanel = () => {
   const { value, getCheckboxProps } = useCheckboxGroup();
-  useEffect(() => {
-    console.log(value);
-  }, []);
 
   return (
     <Box>

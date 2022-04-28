@@ -17,11 +17,14 @@ import {
   FormLabel,
   StackItem,
   Input,
+  useCheckboxGroup,
 } from '@chakra-ui/react';
 import { BaseButton } from '@/components/base/BaseButton';
 import { AdminTalentList } from './AdminTalentList';
 
 export const TalentsPanel = () => {
+  const { value, getCheckboxProps } = useCheckboxGroup();
+
   const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
   const [createFirstName, setCreateFistName] = useState<string | undefined>();
   const [createLastName, setCreateLastName] = useState<string | undefined>();
@@ -29,8 +32,10 @@ export const TalentsPanel = () => {
 
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [editFirstName, setEditFirstName] = useState<string | undefined>('Max');
-  const [editLastName, setEditLastName] = useState<string | undefined>('Muster');
-  const [editEmail, setEditEmail] = useState<string | undefined>('max@muster.com');
+  const [editLastName, setEditLastName] =
+    useState<string | undefined>('Muster');
+  const [editEmail, setEditEmail] =
+    useState<string | undefined>('max@muster.com');
 
   return (
     <>
@@ -143,17 +148,17 @@ export const TalentsPanel = () => {
                 </Stack>
               </Stack>
             </ModalBody>
-          <ModalFooter>
-            <Button
-              variant="ghost"
-              colorScheme="blue"
-              mr={3}
-              onClick={() => setCreateModalIsOpen(false)}
-            >
-              Abbrechen
-            </Button>
-            <Button colorScheme="blue">Hinzufügen</Button>
-          </ModalFooter>
+            <ModalFooter>
+              <Button
+                variant="ghost"
+                colorScheme="blue"
+                mr={3}
+                onClick={() => setCreateModalIsOpen(false)}
+              >
+                Abbrechen
+              </Button>
+              <Button colorScheme="blue">Hinzufügen</Button>
+            </ModalFooter>
           </chakra.form>
         </ModalContent>
       </Modal>
