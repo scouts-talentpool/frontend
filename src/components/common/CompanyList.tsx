@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Flex, HStack, Spinner, Stack } from '@chakra-ui/react';
 import { useQuery, useQueryClient } from 'react-query';
@@ -32,6 +32,10 @@ export const CompanyList = () => {
     },
     { keepPreviousData: true },
   );
+
+  useEffect(() => {
+    queryClient.invalidateQueries('companies');
+  }, [cursor, take]);
 
   if (companies.isLoading) return <Spinner />;
 
