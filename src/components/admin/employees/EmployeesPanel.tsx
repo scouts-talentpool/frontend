@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { Box, Heading, HStack } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Heading, HStack, useCheckboxGroup } from '@chakra-ui/react';
 import { AdminEmployeeList } from './AdminEmployeeList';
 import { BaseButton } from '@/components/base/BaseButton';
-import { useCheckboxGroup } from '@chakra-ui/react';
 
 export const EmployeesPanel = () => {
   const { value, getCheckboxProps } = useCheckboxGroup();
@@ -27,7 +26,7 @@ export const EmployeesPanel = () => {
         </HStack>
       </Box>
 
-      <AdminEmployeeList checkboxProps={getCheckboxProps} />
+      <AdminEmployeeList />
     </Box>
   );
 };
