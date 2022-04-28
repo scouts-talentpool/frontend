@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Heading,
@@ -20,8 +20,14 @@ import {
 } from '@chakra-ui/react';
 import { BaseButton } from '@/components/base/BaseButton';
 import { AdminTalentList } from './AdminTalentList';
+import { useCheckboxGroup } from '@chakra-ui/react';
 
 export const TalentsPanel = () => {
+  const { value, getCheckboxProps } = useCheckboxGroup();
+  useEffect(() => {
+    console.log(value);
+  }, []);
+
   const [firstName, setFirstName] = useState<string | undefined>('Max');
   const [lastName, setLastName] = useState<string | undefined>('Muster');
   const [email, setEmail] = useState<string | undefined>('max@muster.com');
@@ -184,7 +190,7 @@ export const TalentsPanel = () => {
       </Modal>
 
       <Box>
-        <AdminTalentList />
+        <AdminTalentList checkboxProps={getCheckboxProps} />
       </Box>
     </>
   );

@@ -15,7 +15,7 @@ type CompanyProps = {
 
 export const Company = ({ company }: CompanyProps) => {
   return (
-    <LinkBox bg="gray.200" p="4">
+    <LinkBox bg="gray.200" p="4" width="100%">
       <Flex alignItems="center" justifyContent="left">
         <Heading size="sm">
           <LinkOverlay href={`/companies/${company.id}`}>

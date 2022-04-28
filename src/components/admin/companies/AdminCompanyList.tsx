@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import {
   chakra,
@@ -10,6 +10,9 @@ import {
   Button,
   HStack,
   Spinner,
+  CheckboxGroup,
+  FormControl,
+  FormLabel,
 } from '@chakra-ui/react';
 import { useQuery, useQueryClient } from 'react-query';
 import { Company } from '@/components/common/Company';
@@ -17,7 +20,11 @@ import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
 
-export const AdminCompanyList = () => {
+type AdminCompanyListProps = {
+  checkboxProps?: any;
+};
+
+export const AdminCompanyList = ({ checkboxProps }: AdminCompanyListProps) => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
@@ -57,16 +64,18 @@ export const AdminCompanyList = () => {
 
   return (
     <Flex direction="column">
-      <Stack>
-        {companies.data?.map((company) => (
-          <Flex alignItems="center" key={company.id}>
-            <Checkbox></Checkbox>
-            <Box width="100%" ml="4">
-              <Company key={company.id} company={company} />
-            </Box>
-          </Flex>
-        ))}
-      </Stack>
+      <CheckboxGroup onChange={(e) => console.log(e)}>
+        <Stack>
+          {companies.data?.map((company) => (
+            <Flex alignItems="center" justifyContent="stretch" key={company.id}>
+              <Checkbox value={company.id} {...checkboxProps()} />
+              <Box width="100%" ml="4">
+                <Company company={company} />
+              </Box>
+            </Flex>
+          ))}
+        </Stack>
+      </CheckboxGroup>
       <HStack mt="4">
         <Button
           onClick={() => {
