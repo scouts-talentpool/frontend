@@ -11,14 +11,14 @@ export const TalentsPanel = () => {
       </Heading>
 
       <Box
-        bg={'gray.100'}
-        mb={4}
-        p={0}
+        bg="gray.200"
+        mb="4"
+        p="0"
         borderRadius="lg"
-        padding={4}
+        padding="4"
         rounded="0px"
       >
-        <HStack justifyContent={'center'}>
+        <HStack justifyContent="center">
           <BaseButton>Talent Hinzufügen</BaseButton>
           <BaseButton>Talent Editieren</BaseButton>
         </HStack>

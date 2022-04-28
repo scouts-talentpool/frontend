@@ -15,6 +15,9 @@ export const Talent = ({ talent }: TalentProps) => {
             {talent.firstname} {talent.lastname}
           </LinkOverlay>
         </Heading>
+        <Text size="sm" ml="4">
+          {talent.birthdate}
+        </Text>
       </Flex>
     </LinkBox>
   );

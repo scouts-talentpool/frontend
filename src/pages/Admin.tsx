@@ -7,7 +7,7 @@ import { CompaniesPanel } from '@/components/admin/companies/CompaniesPanel';
 
 export const Admin = () => {
   return (
-    <Tabs isLazy>
+    <Tabs>
       <AdminNavigation />
       <TabPanels>
         <TabPanel>

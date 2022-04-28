@@ -11,14 +11,14 @@ export const CompaniesPanel = () => {
       </Heading>
 
       <Box
-        bg={'gray.100'}
-        mb={4}
-        p={0}
+        bg="gray.200"
+        mb="4"
+        p="0"
         borderRadius="lg"
-        padding={4}
+        padding="4"
         rounded="0px"
       >
-        <HStack justifyContent={'center'}>
+        <HStack justifyContent="center">
           <BaseButton>Firma Hinzufügen</BaseButton>
           <BaseButton>Firma Editieren</BaseButton>
         </HStack>
