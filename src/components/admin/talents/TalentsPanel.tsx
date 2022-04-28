@@ -1,5 +1,25 @@
 import React, { useState } from 'react';
-import { Box, Heading, HStack, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, ModalFooter, Button, chakra, Stack, FormControl, FormLabel, StackItem, Image, Flex, Input } from '@chakra-ui/react';
+import {
+  Box,
+  Heading,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  ModalFooter,
+  Button,
+  chakra,
+  Stack,
+  FormControl,
+  FormLabel,
+  StackItem,
+  Image,
+  Flex,
+  Input,
+} from '@chakra-ui/react';
 import { BaseButton } from '@/components/base/BaseButton';
 import { AdminTalentList } from './AdminTalentList';
 
@@ -13,7 +33,7 @@ export const TalentsPanel = () => {
 
   return (
     <>
-      <Heading size='md' mb='4'>
+      <Heading size="md" mb="4">
         Talente verwalten
       </Heading>
 
@@ -21,17 +41,24 @@ export const TalentsPanel = () => {
         bg={'gray.100'}
         mb={4}
         p={0}
-        borderRadius='lg'
+        borderRadius="lg"
         padding={4}
-        rounded='0px'
+        rounded="0px"
       >
         <HStack justifyContent={'center'}>
-          <BaseButton onClick={() => setCreateModalIsOpen(true)}>Talent Hinzufügen</BaseButton>
-          <BaseButton onClick={() => setEditModalIsOpen(true)}>Talent Editieren</BaseButton>
+          <BaseButton onClick={() => setCreateModalIsOpen(true)}>
+            Talent Hinzufügen
+          </BaseButton>
+          <BaseButton onClick={() => setEditModalIsOpen(true)}>
+            Talent Editieren
+          </BaseButton>
         </HStack>
       </Box>
 
-      <Modal isOpen={createModalIsOpen} onClose={() => setCreateModalIsOpen(false)}>
+      <Modal
+        isOpen={createModalIsOpen}
+        onClose={() => setCreateModalIsOpen(false)}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Talent Hinzufügen</ModalHeader>
@@ -41,54 +68,51 @@ export const TalentsPanel = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button variant='ghost' colorScheme='blue' mr={3} onClick={() => setCreateModalIsOpen(false)}>
+            <Button
+              variant="ghost"
+              colorScheme="blue"
+              mr={3}
+              onClick={() => setCreateModalIsOpen(false)}
+            >
               Abbrechen
             </Button>
-            <Button colorScheme='blue'>Hinzufügen</Button>
+            <Button colorScheme="blue">Hinzufügen</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
 
-      <Modal 
-        isOpen={editModalIsOpen}
-        onClose={() => setEditModalIsOpen(false)}
-      >
+      <Modal isOpen={editModalIsOpen} onClose={() => setEditModalIsOpen(false)}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Talent Editieren</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            <chakra.form
-              method='POST'
-              rounded='0px'
-              overflow={{ sm: 'hidden' }}
-              onSubmit={() => null}
-            >
-              <Stack
-                px={4}
-                py={5}
-                p={[null, 6]}
-                spacing={6}
-              >
+          <chakra.form
+            method="POST"
+            rounded="0px"
+            overflow={{ sm: 'hidden' }}
+            onSubmit={() => null}
+          >
+            <ModalBody>
+              <Stack px={4} py={5} p={[null, 6]} spacing={6}>
                 <Stack>
                   <FormControl as={StackItem}>
                     <FormLabel
-                      htmlFor='first_name'
-                      fontSize='sm'
-                      fontWeight='md'
+                      htmlFor="first_name"
+                      fontSize="sm"
+                      fontWeight="md"
                     >
                       Vornamen
                     </FormLabel>
                     <Input
-                      type='text'
-                      name='first_name'
-                      id='first_name'
-                      autoComplete='given-name'
+                      type="text"
+                      name="first_name"
+                      id="first_name"
+                      autoComplete="given-name"
                       mt={1}
-                      shadow='sm'
-                      size='sm'
-                      w='full'
-                      rounded='0px'
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="0px"
                       defaultValue={firstName}
                       onChange={(c) => setFirstName(c.target.value)}
                     />
@@ -96,22 +120,22 @@ export const TalentsPanel = () => {
 
                   <FormControl as={StackItem}>
                     <FormLabel
-                      htmlFor='last_name'
-                      fontSize='sm'
-                      fontWeight='md'
+                      htmlFor="last_name"
+                      fontSize="sm"
+                      fontWeight="md"
                     >
                       Nachname
                     </FormLabel>
                     <Input
-                      type='text'
-                      name='last_name'
-                      id='last_name'
-                      autoComplete='family-name'
+                      type="text"
+                      name="last_name"
+                      id="last_name"
+                      autoComplete="family-name"
                       mt={1}
-                      shadow='sm'
-                      size='sm'
-                      w='full'
-                      rounded='0px'
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="0px"
                       defaultValue={lastName}
                       onChange={(c) => setLastName(c.target.value)}
                     />
@@ -119,22 +143,22 @@ export const TalentsPanel = () => {
 
                   <FormControl as={StackItem}>
                     <FormLabel
-                      htmlFor='email_address'
-                      fontSize='sm'
-                      fontWeight='md'
+                      htmlFor="email_address"
+                      fontSize="sm"
+                      fontWeight="md"
                     >
                       Email Addresse
                     </FormLabel>
                     <Input
-                      type='text'
-                      name='email_address'
-                      id='email_address'
-                      autoComplete='email'
+                      type="text"
+                      name="email_address"
+                      id="email_address"
+                      autoComplete="email"
                       mt={1}
-                      shadow='sm'
-                      size='sm'
-                      w='full'
-                      rounded='0px'
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="0px"
                       defaultValue={email}
                       onChange={(c) => setEmail(c.target.value)}
                     />
@@ -142,15 +166,23 @@ export const TalentsPanel = () => {
                 </Stack>
                 {/* <Button type='submit'>Speichern</Button> */}
               </Stack>
-            </chakra.form>
-          </ModalBody>
+            </ModalBody>
 
-          <ModalFooter>
-            <Button variant='ghost' colorScheme='blue' rounded='0px' mr={3} onClick={() => setEditModalIsOpen(false)}>
-              Abbrechen
-            </Button>
-            <Button type='submit' colorScheme='blue' rounded='0px'>Änderungen Speichern</Button>
-          </ModalFooter>
+            <ModalFooter>
+              <Button
+                variant="ghost"
+                colorScheme="blue"
+                rounded="0px"
+                mr={3}
+                onClick={() => setEditModalIsOpen(false)}
+              >
+                Abbrechen
+              </Button>
+              <Button type="submit" colorScheme="blue" rounded="0px">
+                Änderungen Speichern
+              </Button>
+            </ModalFooter>
+          </chakra.form>
         </ModalContent>
       </Modal>
 

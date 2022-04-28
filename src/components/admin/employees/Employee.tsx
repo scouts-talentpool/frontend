@@ -4,8 +4,6 @@ import {
   Flex,
   Text,
   Heading,
-  LinkOverlay,
-  Stack,
 } from '@chakra-ui/react';
 import { User } from '@/api/users';
 import aspida from '@aspida/axios';
