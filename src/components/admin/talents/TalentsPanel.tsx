@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Heading,
@@ -20,20 +20,17 @@ import {
 } from '@chakra-ui/react';
 import { BaseButton } from '@/components/base/BaseButton';
 import { AdminTalentList } from './AdminTalentList';
-import { useCheckboxGroup } from '@chakra-ui/react';
 
 export const TalentsPanel = () => {
-  const { value, getCheckboxProps } = useCheckboxGroup();
-  useEffect(() => {
-    console.log(value);
-  }, []);
-
-  const [firstName, setFirstName] = useState<string | undefined>('Max');
-  const [lastName, setLastName] = useState<string | undefined>('Muster');
-  const [email, setEmail] = useState<string | undefined>('max@muster.com');
-
   const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+  const [createFirstName, setCreateFistName] = useState<string | undefined>();
+  const [createLastName, setCreateLastName] = useState<string | undefined>();
+  const [createEmail, setCreateEmail] = useState<string | undefined>();
+
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [editFirstName, setEditFirstName] = useState<string | undefined>('Max');
+  const [editLastName, setEditLastName] = useState<string | undefined>('Muster');
+  const [editEmail, setEditEmail] = useState<string | undefined>('max@muster.com');
 
   return (
     <>
@@ -63,14 +60,89 @@ export const TalentsPanel = () => {
         isOpen={createModalIsOpen}
         onClose={() => setCreateModalIsOpen(false)}
       >
+        <ModalHeader>Talent Hinzufügen</ModalHeader>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Talent Hinzufügen</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            Lorem ipsum lalaldsklds ipsumipsu lmipsumipsumipsumipsum
-          </ModalBody>
-
+          <chakra.form
+            method="POST"
+            rounded="0px"
+            overflow={{ sm: 'hidden' }}
+            onSubmit={() => null}
+          >
+            <ModalBody>
+              <Stack px={4} py={5} p={[null, 6]} spacing={6}>
+                <Stack>
+                  <FormControl as={StackItem}>
+                    <FormLabel
+                      htmlFor="first_name"
+                      fontSize="sm"
+                      fontWeight="md"
+                    >
+                      Vornamen
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="first_name"
+                      id="first_name"
+                      autoComplete="given-name"
+                      mt={1}
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="0px"
+                      defaultValue={createFirstName}
+                      onChange={(c) => setCreateFistName(c.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl as={StackItem}>
+                    <FormLabel
+                      htmlFor="last_name"
+                      fontSize="sm"
+                      fontWeight="md"
+                    >
+                      Nachname
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="last_name"
+                      id="last_name"
+                      autoComplete="family-name"
+                      mt={1}
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="0px"
+                      defaultValue={createLastName}
+                      onChange={(c) => setCreateLastName(c.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl as={StackItem}>
+                    <FormLabel
+                      htmlFor="email_address"
+                      fontSize="sm"
+                      fontWeight="md"
+                    >
+                      Email Addresse
+                    </FormLabel>
+                    <Input
+                      type="text"
+                      name="email_address"
+                      id="email_address"
+                      autoComplete="email"
+                      mt={1}
+                      shadow="sm"
+                      size="sm"
+                      w="full"
+                      rounded="0px"
+                      defaultValue={createEmail}
+                      onChange={(c) => setCreateEmail(c.target.value)}
+                    />
+                  </FormControl>
+                </Stack>
+              </Stack>
+            </ModalBody>
           <ModalFooter>
             <Button
               variant="ghost"
@@ -82,6 +154,7 @@ export const TalentsPanel = () => {
             </Button>
             <Button colorScheme="blue">Hinzufügen</Button>
           </ModalFooter>
+          </chakra.form>
         </ModalContent>
       </Modal>
 
@@ -117,11 +190,10 @@ export const TalentsPanel = () => {
                       size="sm"
                       w="full"
                       rounded="0px"
-                      defaultValue={firstName}
-                      onChange={(c) => setFirstName(c.target.value)}
+                      defaultValue={editFirstName}
+                      onChange={(c) => setEditFirstName(c.target.value)}
                     />
                   </FormControl>
-
                   <FormControl as={StackItem}>
                     <FormLabel
                       htmlFor="last_name"
@@ -140,11 +212,10 @@ export const TalentsPanel = () => {
                       size="sm"
                       w="full"
                       rounded="0px"
-                      defaultValue={lastName}
-                      onChange={(c) => setLastName(c.target.value)}
+                      defaultValue={editLastName}
+                      onChange={(c) => setEditLastName(c.target.value)}
                     />
                   </FormControl>
-
                   <FormControl as={StackItem}>
                     <FormLabel
                       htmlFor="email_address"
@@ -163,14 +234,13 @@ export const TalentsPanel = () => {
                       size="sm"
                       w="full"
                       rounded="0px"
-                      defaultValue={email}
-                      onChange={(c) => setEmail(c.target.value)}
+                      defaultValue={editEmail}
+                      onChange={(c) => setEditEmail(c.target.value)}
                     />
                   </FormControl>
                 </Stack>
               </Stack>
             </ModalBody>
-
             <ModalFooter>
               <Button
                 variant="ghost"
