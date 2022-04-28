@@ -9,7 +9,6 @@ import {
   Button,
   HStack,
   Spinner,
-  CheckboxGroup,
 } from '@chakra-ui/react';
 import { useQuery, useQueryClient } from 'react-query';
 import aspida from '@aspida/axios';
@@ -17,12 +16,9 @@ import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
 import { Talent } from '@/components/common/Talent';
 import { Role } from '@/api/users';
+import { Employee } from '../employees/Employee';
 
-type AdminTalentListProps = {
-  checkboxProps?: any;
-};
-
-export const AdminTalentList = ({ checkboxProps }: AdminTalentListProps) => {
+export const AdminTalentList = () => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
@@ -62,18 +58,16 @@ export const AdminTalentList = ({ checkboxProps }: AdminTalentListProps) => {
 
   return (
     <Flex direction="column">
-      <CheckboxGroup onChange={(e) => console.log(e)}>
-        <Stack>
-          {talents.data?.map((talent) => (
-            <Flex alignItems="center" justifyContent="stretch" key={talent.id}>
-              <Checkbox value={talent.id} {...checkboxProps()} />
-              <Box width="100%" ml="4">
-                <Talent talent={talent} />
-              </Box>
-            </Flex>
-          ))}
-        </Stack>
-      </CheckboxGroup>
+      <Stack>
+        {talents.data?.map((talent) => (
+          <Flex alignItems="center" key={talent.id}>
+            <Checkbox></Checkbox>
+            <Box width="100%" ml="4">
+              <Talent key={talent.id} talent={talent} />
+            </Box>
+          </Flex>
+        ))}
+      </Stack>
       <HStack mt="4">
         <Button
           onClick={() => {

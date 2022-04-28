@@ -3,20 +3,14 @@ import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useQuery, useQueryClient } from 'react-query';
+import { Employee } from './Employee';
 import { Checkbox } from '@chakra-ui/checkbox';
 import { Stack, Flex, Box, HStack } from '@chakra-ui/layout';
 import { Navigate } from 'react-router';
-import { Button, CheckboxGroup, Spinner } from '@chakra-ui/react';
+import { Button, Spinner } from '@chakra-ui/react';
 import { Role } from '@/api/users';
-import { Employee } from './Employee';
 
-type AdminEmployeeListProps = {
-  checkboxProps?: any;
-};
-
-export const AdminEmployeeList = ({
-  checkboxProps,
-}: AdminEmployeeListProps) => {
+export const AdminEmployeeList = () => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
@@ -58,23 +52,16 @@ export const AdminEmployeeList = ({
 
   return (
     <Flex direction="column">
-      <CheckboxGroup onChange={(e) => console.log(e)}>
-        <Stack>
-          {data?.map((employee) => (
-            <Flex
-              alignItems="center"
-              justifyContent="stretch"
-              key={employee.id}
-            >
-              <Checkbox value={employee.id} {...checkboxProps()} />
-              <Box width="100%" ml="4">
-                <Employee employee={employee} />
-              </Box>
-            </Flex>
-          ))}
-        </Stack>
-      </CheckboxGroup>
-
+      <Stack>
+        {data?.map((employee) => (
+          <Flex alignItems="center" key={employee.id}>
+            <Checkbox></Checkbox>
+            <Box width="100%" ml="4">
+              <Employee employee={employee} />
+            </Box>
+          </Flex>
+        ))}
+      </Stack>
       <HStack mt="4">
         <Button
           onClick={() => {
