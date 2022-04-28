@@ -69,7 +69,7 @@ export const AdminEmployeeList = () => {
               setCursor((old) => old - take);
             }
           }}
-          disabled={cursor === 0}
+          disabled={cursor === 1}
         >
           Previous
         </Button>
