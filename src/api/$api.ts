@@ -1,4 +1,5 @@
 import type { AspidaClient } from 'aspida'
+import { dataToURLString } from 'aspida'
 import type { Methods as Methods0 } from './companies'
 import type { Methods as Methods1 } from './companies/_id@string'
 import type { Methods as Methods2 } from './talents'
@@ -93,11 +94,12 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
           $path: () => `${prefix}${prefix1}`
         }
       },
-      get: (option: { headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
+      get: (option: { query?: Methods4['get']['query'] | undefined, headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods4['get']['resBody']>(prefix, PATH2, GET, option).json(),
-      $get: (option: { headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
+      $get: (option: { query?: Methods4['get']['query'] | undefined, headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods4['get']['resBody']>(prefix, PATH2, GET, option).json().then(r => r.body),
-      $path: () => `${prefix}${PATH2}`
+      $path: (option?: { method?: 'get' | undefined; query: Methods4['get']['query'] } | undefined) =>
+        `${prefix}${PATH2}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     }
   }
 }

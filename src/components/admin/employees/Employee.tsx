@@ -20,7 +20,7 @@ type EmployeeProps = {
 export const Employee = ({ employee }: EmployeeProps) => {
   const client = api(aspida());
 
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   const company = useQuery('company', async () => {
     return getAccessTokenSilently().then(
@@ -34,9 +34,7 @@ export const Employee = ({ employee }: EmployeeProps) => {
   return (
     <LinkBox bg="gray.200" p="4">
       <Flex alignItems="center" justifyContent="left">
-        <Heading size="sm">
-          {user?.given_name} {user?.family_name}
-        </Heading>
+        <Heading size="sm">{employee.id}</Heading>
         <Text size="sm" ml="4">
           {company.data?.name}
         </Text>
