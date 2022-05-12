@@ -3,12 +3,12 @@ import { useAuth0 } from '@auth0/auth0-react';
 import {
   Checkbox,
   Flex,
-  Skeleton,
   Stack,
   Box,
   Button,
   HStack,
   Spinner,
+  CheckboxGroup,
 } from '@chakra-ui/react';
 import { useQuery, useQueryClient } from 'react-query';
 import aspida from '@aspida/axios';
@@ -16,13 +16,12 @@ import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
 import { Talent } from '@/components/common/Talent';
 import { Role } from '@/api/users';
-import { Employee } from '../employees/Employee';
 
-export const AdminTalentList = () => {
+export const AdminTalentList = ({ getCheckboxProps }: any) => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
-  const [take, _] = useState<number>(25);
+  const take = 25;
 
   const { getAccessTokenSilently } = useAuth0();
   const queryClient = useQueryClient();
@@ -32,11 +31,12 @@ export const AdminTalentList = () => {
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.talents.$get({
+          await client.users.$get({
             headers: { Authorization: `Bearer ${accessToken}` },
             query: {
               take,
               cursor,
+              role: Role.TALENT,
             },
           }),
       );
@@ -58,16 +58,18 @@ export const AdminTalentList = () => {
 
   return (
     <Flex direction="column">
-      <Stack>
-        {talents.data?.map((talent) => (
-          <Flex alignItems="center" key={talent.id}>
-            <Checkbox></Checkbox>
-            <Box width="100%" ml="4">
-              <Talent key={talent.id} talent={talent} />
-            </Box>
-          </Flex>
-        ))}
-      </Stack>
+      <CheckboxGroup>
+        <Stack>
+          {talents.data?.map((talent) => (
+            <Flex alignItems="center" key={talent.id}>
+              <Checkbox value={talent.id} {...getCheckboxProps()}></Checkbox>
+              <Box width="100%" ml="4">
+                <Talent key={talent.id} talent={talent} />
+              </Box>
+            </Flex>
+          ))}
+        </Stack>
+      </CheckboxGroup>
       <HStack mt="4">
         <Button
           onClick={() => {

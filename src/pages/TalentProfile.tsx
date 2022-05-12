@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { Skeleton } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -17,7 +18,7 @@ export const TalentProfile = () => {
   const talent = useQuery('talent', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.talents._id(id!).$get({
+        await client.users.talent._talentProfileId(id!).$get({
           headers: { Authorization: `Bearer ${accessToken}` },
         }),
     );
@@ -37,7 +38,7 @@ export const TalentProfile = () => {
 
   return (
     <div>
-      Hello {talent.data?.firstname} {talent.data?.lastname}
+      Hello {talent.data?.given_name} {talent.data?.family_name}
     </div>
   );
 };

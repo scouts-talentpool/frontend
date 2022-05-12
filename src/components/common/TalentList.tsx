@@ -6,6 +6,7 @@ import { Talent } from '@/components/common/Talent';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
+import { Role } from '@/api/users';
 
 export const TalentList = () => {
   const client = api(aspida());
@@ -21,11 +22,12 @@ export const TalentList = () => {
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.talents.$get({
+          await client.users.$get({
             headers: { Authorization: `Bearer ${accessToken}` },
             query: {
               take,
               cursor,
+              role: Role.TALENT,
             },
           }),
       );

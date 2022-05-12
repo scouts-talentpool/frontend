@@ -1,9 +1,9 @@
 import React from 'react';
 import { LinkBox, Flex, Text, Heading, LinkOverlay } from '@chakra-ui/react';
-import { TalentProfile } from '@/api/talents';
+import { User } from '@/api/users';
 
 type TalentProps = {
-  talent: TalentProfile;
+  talent: User;
 };
 
 export const Talent = ({ talent }: TalentProps) => {
@@ -12,11 +12,11 @@ export const Talent = ({ talent }: TalentProps) => {
       <Flex alignItems="center" justifyContent="left">
         <Heading size="sm">
           <LinkOverlay href={`/talents/${talent.id}`}>
-            {talent.firstname} {talent.lastname}
+            {talent.given_name} {talent.family_name}
           </LinkOverlay>
         </Heading>
         <Text size="sm" ml="4">
-          {talent.birthdate}
+          {talent.email}
         </Text>
       </Flex>
     </LinkBox>

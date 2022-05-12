@@ -11,7 +11,6 @@ import { CompanyProfile } from './pages/CompanyProfile';
 import { Admin } from './pages/Admin';
 import { Error } from './pages/Error';
 import { MyProfile } from './pages/MyProfile';
-import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 export const Routes = () => {
   return (
@@ -21,7 +20,7 @@ export const Routes = () => {
       <Route path="/companies/:id" element={<CompanyProfile />} />
       <Route path="/talents" element={<Talents />} />
       <Route path="/talents/:id" element={<TalentProfile />} />
-      <Route path="/me" element={<MyProfile />} />
+      <Route path="/me" element={<ProtectedRoute component={MyProfile} />} />
       <Route path="/admin" element={<ProtectedRoute component={Admin} />} />
       <Route
         path="*"

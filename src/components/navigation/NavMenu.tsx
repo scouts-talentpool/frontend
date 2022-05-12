@@ -15,7 +15,6 @@ import { Navigate, NavLink } from 'react-router-dom';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Role } from '@/api/users';
-import { Error } from '@/pages/Error';
 import { useQuery, useQueryClient } from 'react-query';
 
 export const NavMenu = () => {
@@ -27,7 +26,7 @@ export const NavMenu = () => {
   const userDetails = useQuery('me', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.users._id(user?.sub?.split('|')[1]!).$get({
+        await client.users._id(user?.sub ?? '').$get({
           headers: { Authorization: `Bearer ${accessToken}` },
         }),
     );
@@ -69,7 +68,7 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {userDetails.data?.role! !== Role.ADMIN ? (
+        {userDetails.data?.role !== Role.ADMIN ? (
           <MenuItem as={NavLink} to="/me">
             Mein Profil
           </MenuItem>

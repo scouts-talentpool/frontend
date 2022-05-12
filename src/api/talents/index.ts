@@ -1,8 +1,6 @@
 export type TalentProfile = {
   id: string;
-  firstname: string;
-  lastname: string;
-  birthdate: string;
+  birthdate: Date;
 };
 
 export type Methods = {

@@ -13,12 +13,12 @@ export const MyProfile = () => {
   const queryClient = useQueryClient();
 
   const userDetails = useQuery('me', async () => {
-    return getAccessTokenSilently().then(
-      async (accessToken: string) =>
-        await client.users._id(user?.sub?.split('|')[1]!).$get({
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }),
-    );
+    return getAccessTokenSilently().then(async (accessToken: string) => {
+      console.log(user?.sub);
+      return await client.users._id(user?.sub ?? '').$get({
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+    });
   });
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const MyProfile = () => {
   }, [user]);
 
   const dest =
-    userDetails.data?.role! === Role.COMPANY
+    userDetails.data?.role === Role.COMPANY
       ? `/companies/${userDetails.data?.companyProfileId}`
       : `/talents/${userDetails.data?.talentProfileId}`;
 

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { Skeleton } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';

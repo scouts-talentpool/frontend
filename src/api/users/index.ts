@@ -7,6 +7,10 @@ export enum Role {
 export type User = {
   id: string;
   role: Role;
+  email: string,
+  password?: string,
+  given_name: string,
+  family_name: string,
   talentProfileId?: string;
   companyProfileId?: string;
 };
@@ -23,4 +27,11 @@ export type Methods = {
       role?: Role;
     };
   };
+  post: {
+    resBody: User,
+    reqBody: User,
+    reqHeaders: {
+      Authorization: string;
+    };
+  }
 };
