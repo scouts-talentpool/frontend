@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes as PageRoutes, Route, useParams } from 'react-router-dom';
+import { Routes as PageRoutes, Route } from 'react-router-dom';
 
 import { ProtectedRoute } from './components/navigation/ProtectedRoute';
 

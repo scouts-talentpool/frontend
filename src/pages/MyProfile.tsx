@@ -4,7 +4,7 @@ import api from '@/api/$api';
 import { Role } from '@/api/users';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 export const MyProfile = () => {
   const client = api(aspida());
@@ -15,8 +15,10 @@ export const MyProfile = () => {
   const userDetails = useQuery('me', async () => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
       console.log(user?.sub);
-      return await client.users._id(user?.sub ?? '').$get({
-        headers: { Authorization: `Bearer ${accessToken}` },
+      return await client.benutzer._id(user?.sub ?? '').$get({
+        config: {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
       });
     });
   });
@@ -26,7 +28,7 @@ export const MyProfile = () => {
   }, [user]);
 
   const dest =
-    userDetails.data?.role === Role.COMPANY
+    userDetails.data?.rolle === Role.COMPANY
       ? `/companies/${userDetails.data?.companyProfileId}`
       : `/talents/${userDetails.data?.talentProfileId}`;
 

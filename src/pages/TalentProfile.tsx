@@ -18,8 +18,10 @@ export const TalentProfile = () => {
   const talent = useQuery('talent', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.users.talent._talentProfileId(id!).$get({
-          headers: { Authorization: `Bearer ${accessToken}` },
+        await client.talente._id(id!).$get({
+          config: {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          },
         }),
     );
   });
