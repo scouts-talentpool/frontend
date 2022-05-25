@@ -1,11 +1,9 @@
-import React, { SyntheticEvent } from 'react';
-import { Box, Heading, HStack, useCheckboxGroup } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Heading, HStack } from '@chakra-ui/react';
 import { AdminCompanyList } from './AdminCompanyList';
 import { BaseButton } from '@/components/base/BaseButton';
 
 export const CompaniesPanel = () => {
-  const { value, getCheckboxProps } = useCheckboxGroup();
-
   return (
     <Box>
       <Heading size="md" mb="4">

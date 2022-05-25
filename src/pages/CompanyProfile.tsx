@@ -18,8 +18,10 @@ export const CompanyProfile = () => {
   const company = useQuery('company', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.companies._id(id!).$get({
-          headers: { Authorization: `Bearer ${accessToken}` },
+        await client.firmen._id(id!).$get({
+          config: {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          },
         }),
     );
   });
@@ -36,5 +38,5 @@ export const CompanyProfile = () => {
     return <Navigate to={`/error?message=${company.error}`} />;
   }
 
-  return <div>Hello {company.data?.name}</div>;
+  return <div>Hello {company.data?.firmenname}</div>;
 };

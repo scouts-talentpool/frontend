@@ -8,7 +8,6 @@ import { Checkbox } from '@chakra-ui/checkbox';
 import { Stack, Flex, Box, HStack } from '@chakra-ui/layout';
 import { Navigate } from 'react-router';
 import { Button, Spinner } from '@chakra-ui/react';
-import { Role } from '@/api/users';
 
 export const AdminEmployeeList = () => {
   const client = api(aspida());
@@ -19,24 +18,25 @@ export const AdminEmployeeList = () => {
   const { getAccessTokenSilently } = useAuth0();
   const queryClient = useQueryClient();
 
-  const { data, isPreviousData, isSuccess, isLoading, isError, error } =
-    useQuery(
-      ['users', cursor],
-      async () => {
-        return getAccessTokenSilently().then(
-          async (accessToken: string) =>
-            await client.users.$get({
+  const { data, isPreviousData, isLoading, isError, error } = useQuery(
+    ['users', cursor],
+    async () => {
+      return getAccessTokenSilently().then(
+        async (accessToken: string) =>
+          await client.benutzer.$get({
+            config: {
               headers: { Authorization: `Bearer ${accessToken}` },
-              query: {
-                take,
-                cursor,
-                role: Role.COMPANY,
-              },
-            }),
-        );
-      },
-      { keepPreviousData: true },
-    );
+            },
+            query: {
+              take: take.toString(),
+              cursor: cursor.toString(),
+              rolle: 'Firma',
+            },
+          }),
+      );
+    },
+    { keepPreviousData: true },
+  );
 
   useEffect(() => {
     queryClient.invalidateQueries('users');

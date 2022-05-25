@@ -15,7 +15,6 @@ import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
 import { Talent } from '@/components/common/Talent';
-import { Role } from '@/api/users';
 
 export const AdminTalentList = ({ getCheckboxProps }: any) => {
   const client = api(aspida());
@@ -31,12 +30,13 @@ export const AdminTalentList = ({ getCheckboxProps }: any) => {
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.users.$get({
-            headers: { Authorization: `Bearer ${accessToken}` },
+          await client.talente.$get({
+            config: {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            },
             query: {
-              take,
-              cursor,
-              role: Role.TALENT,
+              take: take.toString(),
+              cursor: cursor.toString(),
             },
           }),
       );
