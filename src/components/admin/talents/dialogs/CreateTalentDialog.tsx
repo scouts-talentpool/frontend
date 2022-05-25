@@ -12,8 +12,7 @@ import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { useMutation } from 'react-query';
 import { Navigate } from 'react-router-dom';
-import { TalentProfile } from '@/api/talents';
-import { Role, User } from '@/api/users';
+import { Talent, CreateBenutzerDto } from '@/api/@types';
 
 export const CreateTalentDialog = () => {
   const initialFocusRef = useRef<HTMLElement>(null);
@@ -30,22 +29,26 @@ export const CreateTalentDialog = () => {
 
   const talentProfileMutation = useMutation(
     'talent',
-    async (talent: TalentProfile) => {
+    async (talent: Talent) => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.talents.$post({
+          await client.talente.$post({
             body: talent,
-            headers: { Authorization: `Bearer ${accessToken}` },
+            config: {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            },
           }),
       );
     },
   );
 
-  const userMutation = useMutation('user', async (user: User) => {
+  const userMutation = useMutation('user', async (user: CreateBenutzerDto) => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
-      return await client.users.$post({
+      return await client.benutzer.$post({
         body: user,
-        headers: { Authorization: `Bearer ${accessToken}` },
+        config: {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
       });
     });
   });
@@ -53,10 +56,11 @@ export const CreateTalentDialog = () => {
   const onSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    talentProfileMutation.mutate({
-      id: '',
-      birthdate: new Date(Date.now()),
-    });
+    // TODO(Feat): Daten der Form Fields
+    // talentProfileMutation.mutate({
+    //   ...
+    //   nachname: 'Studer',
+    // });
 
     if (talentProfileMutation.isLoading) return <Spinner />;
 
@@ -64,14 +68,15 @@ export const CreateTalentDialog = () => {
       return <Navigate to={`/error?message=${talentProfileMutation.error}`} />;
     }
 
-    userMutation.mutate({
-      id: '',
-      given_name: '',
-      family_name: '',
-      email: '',
-      role: Role.TALENT,
-      talentProfileId: talentProfileMutation.data?.id,
-    });
+    // TODO(Feat): Daten der Form Fields
+    // userMutation.mutate({
+    //   id: '',
+    //   given_name: '',
+    //   family_name: '',
+    //   email: '',
+    //   role: 'Talent',
+    //   talentProfileId: talentProfileMutation.data?.id,
+    // });
 
     if (userMutation.isLoading) return <Spinner />;
 

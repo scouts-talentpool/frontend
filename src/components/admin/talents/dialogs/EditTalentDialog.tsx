@@ -12,8 +12,12 @@ import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { useMutation, useQuery } from 'react-query';
 import { Navigate } from 'react-router-dom';
-import { TalentProfile } from '@/api/talents';
-import { Role, User } from '@/api/users';
+import {
+  Benutzer,
+  Talent,
+  UpdateBenutzerDto,
+  UpdateTalentDto,
+} from '@/api/@types';
 
 type EditTalentDialogProps = {
   selectedTalent: string;
@@ -35,42 +39,45 @@ export const EditTalentDialog = ({
 
   const { getAccessTokenSilently } = useAuth0();
 
-  const talent = useQuery('user', async () => {
+  const talent = useQuery('talent', async () => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.users.talent._talentProfileId(selectedTalent).$get({
-          headers: { Authorization: `Bearer ${accessToken}` },
+        await client.talente._id(selectedTalent).$get({
+          config: {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          },
         }),
     );
   });
 
   const talentProfileMutation = useMutation(
     'talent',
-    async (talent: TalentProfile) => {
+    async (talent: UpdateTalentDto) => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.talents._id(selectedTalent).$patch({
+          await client.talente._id(selectedTalent).$patch({
             body: talent,
-            headers: { Authorization: `Bearer ${accessToken}` },
+            config: {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            },
           }),
       );
     },
   );
 
-  const userMutation = useMutation('user', async (user: User) => {
+  const userMutation = useMutation('user', async (user: UpdateBenutzerDto) => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
-      return await client.users.talent._talentProfileId(selectedTalent).$patch({
+      return await client.benutzer._id(selectedTalent).$patch({
         body: user,
-        headers: { Authorization: `Bearer ${accessToken}` },
+        config: {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
       });
     });
   });
 
   const onSubmit = () => {
-    talentProfileMutation.mutate({
-      id: '',
-      birthdate: new Date(Date.now()),
-    });
+    talentProfileMutation.mutate({});
 
     if (talentProfileMutation.isLoading) return <Spinner />;
 
@@ -78,14 +85,7 @@ export const EditTalentDialog = ({
       return <Navigate to={`/error?message=${talentProfileMutation.error}`} />;
     }
 
-    userMutation.mutate({
-      id: '',
-      given_name: '',
-      family_name: '',
-      email: '',
-      role: Role.TALENT,
-      talentProfileId: talentProfileMutation.data?.id,
-    });
+    userMutation.mutate({});
 
     if (userMutation.isLoading) return <Spinner />;
 
@@ -115,7 +115,7 @@ export const EditTalentDialog = ({
             id="given_name"
             name="given_name"
             type="text"
-            value={talent.data?.given_name}
+            value={talent.data?.vorname}
             ref={firstnameInputRef}
           />
         </FormControl>
@@ -125,7 +125,7 @@ export const EditTalentDialog = ({
             id="family_name"
             name="family_name"
             type="text"
-            value={talent.data?.family_name}
+            value={talent.data?.nachname}
             ref={lastnameInputRef}
           />
         </FormControl>

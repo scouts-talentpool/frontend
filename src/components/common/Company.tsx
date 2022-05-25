@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-  LinkBox,
-  Flex,
-  Text,
-  Heading,
-  LinkOverlay,
-  Stack,
-} from '@chakra-ui/react';
-import { CompanyProfile } from '@/api/companies';
+import { LinkBox, Flex, Text, Heading, LinkOverlay } from '@chakra-ui/react';
+import { Firma } from '@/api/@types';
 
 type CompanyProps = {
-  company: CompanyProfile;
+  company: Firma;
 };
 
 export const Company = ({ company }: CompanyProps) => {
@@ -19,11 +12,11 @@ export const Company = ({ company }: CompanyProps) => {
       <Flex alignItems="center" justifyContent="left">
         <Heading size="sm">
           <LinkOverlay href={`/companies/${company.id}`}>
-            {company.name}
+            {company.firmenname}
           </LinkOverlay>
         </Heading>
         <Text size="sm" ml="4">
-          {company.location}
+          {company.ort}
         </Text>
       </Flex>
     </LinkBox>

@@ -10,7 +10,7 @@ export type Methods = {
   patch: {
     status: 200
     resBody: Types.Benutzer
-    reqBody: Types.Benutzer
+    reqBody: Types.UpdateBenutzerDto
   }
 
   delete: {

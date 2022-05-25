@@ -1,11 +1,9 @@
 import React from 'react';
-import { Box, Heading, HStack, useCheckboxGroup } from '@chakra-ui/react';
+import { Box, Heading, HStack } from '@chakra-ui/react';
 import { AdminEmployeeList } from './AdminEmployeeList';
 import { BaseButton } from '@/components/base/BaseButton';
 
 export const EmployeesPanel = () => {
-  const { value, getCheckboxProps } = useCheckboxGroup();
-
   return (
     <Box>
       <Heading size="md" mb="4">

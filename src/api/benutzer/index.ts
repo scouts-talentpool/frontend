@@ -5,7 +5,7 @@ export type Methods = {
   post: {
     status: 201
     resBody: Types.Benutzer
-    reqBody: Types.CustomCreateUserData
+    reqBody: Types.CreateBenutzerDto
   }
 
   get: {

@@ -9,6 +9,16 @@ export type Talent = {
   campusId: number
 }
 
+export type UpdateTalentDto = {
+  id?: number | undefined
+  vorname?: string | undefined
+  nachname?: string | undefined
+  plz?: number | undefined
+  wohnort?: string | undefined
+  lehrbeginn?: string | undefined
+  campusId?: number | undefined
+}
+
 export type Firma = {
   id: number
   firmenname: string
@@ -19,7 +29,17 @@ export type Firma = {
   firmenportrait: string
 }
 
-export type CustomCreateUserData = {
+export type UpdateFirmaDto = {
+  id?: number | undefined
+  firmenname?: string | undefined
+  website?: string | undefined
+  strasse?: string | undefined
+  plz?: number | undefined
+  ort?: string | undefined
+  firmenportrait?: string | undefined
+}
+
+export type CreateBenutzerDto = {
   id: number
   authId: string
   rolleId: number
@@ -34,6 +54,15 @@ export type Benutzer = {
   rolleId: number
   talentId: number
   firmaId: number
+}
+
+export type UpdateBenutzerDto = {
+  id?: number | undefined
+  authId?: string | undefined
+  rolleId?: number | undefined
+  talentId?: number | undefined
+  firmaId?: number | undefined
+  password?: string | undefined
 }
 
 export type Berechtigung = {

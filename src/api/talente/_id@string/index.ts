@@ -10,7 +10,7 @@ export type Methods = {
   patch: {
     status: 200
     resBody: Types.Talent
-    reqBody: Types.Talent
+    reqBody: Types.UpdateTalentDto
   }
 
   delete: {

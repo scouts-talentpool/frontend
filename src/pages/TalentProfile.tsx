@@ -40,7 +40,7 @@ export const TalentProfile = () => {
 
   return (
     <div>
-      Hello {talent.data?.given_name} {talent.data?.family_name}
+      Hello {talent.data?.vorname} {talent.data?.nachname}
     </div>
   );
 };

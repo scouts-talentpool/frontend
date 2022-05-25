@@ -1,11 +1,6 @@
-import React, { ComponentType, useEffect } from 'react';
+import React, { ComponentType } from 'react';
 import { withAuthenticationRequired } from '@auth0/auth0-react';
-import { Navigate } from 'react-router-dom';
 import { Skeleton } from '@chakra-ui/react';
-import { useQuery, useQueryClient } from 'react-query';
-import { Role } from '@/api/users';
-import aspida from '@aspida/axios';
-import api from '@/api/$api';
 
 interface ProtectedRouteProps {
   component: ComponentType;

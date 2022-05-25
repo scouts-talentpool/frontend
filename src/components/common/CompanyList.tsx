@@ -21,11 +21,13 @@ export const CompanyList = () => {
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.companies.$get({
-            headers: { Authorization: `Bearer ${accessToken}` },
+          await client.firmen.$get({
+            config: {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            },
             query: {
-              take,
-              cursor,
+              take: take.toString(),
+              cursor: cursor.toString(),
             },
           }),
       );

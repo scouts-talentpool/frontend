@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
-import { Role } from '@/api/users';
 import { useQuery, useQueryClient } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Navigate } from 'react-router-dom';
@@ -27,10 +26,9 @@ export const MyProfile = () => {
     queryClient.invalidateQueries('me');
   }, [user]);
 
-  const dest =
-    userDetails.data?.rolle === Role.COMPANY
-      ? `/companies/${userDetails.data?.companyProfileId}`
-      : `/talents/${userDetails.data?.talentProfileId}`;
+  const dest = userDetails.data?.firmaId
+    ? `/companies/${userDetails.data?.firmaId}`
+    : `/talents/${userDetails.data?.talentId}`;
 
   return <Navigate to={dest} />;
 };

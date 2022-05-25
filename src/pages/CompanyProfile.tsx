@@ -38,5 +38,5 @@ export const CompanyProfile = () => {
     return <Navigate to={`/error?message=${company.error}`} />;
   }
 
-  return <div>Hello {company.data?.name}</div>;
+  return <div>Hello {company.data?.firmenname}</div>;
 };
