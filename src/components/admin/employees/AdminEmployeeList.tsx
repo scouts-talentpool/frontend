@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Flex, Stack, Button, HStack, Spinner } from '@chakra-ui/react';
+import { useQuery } from 'react-query';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
-import { useAuth0 } from '@auth0/auth0-react';
-import { useQuery, useQueryClient } from 'react-query';
-import { Employee } from './Employee';
-import { Checkbox } from '@chakra-ui/checkbox';
-import { Stack, Flex, Box, HStack } from '@chakra-ui/layout';
-import { Navigate } from 'react-router';
-import { Button, Spinner } from '@chakra-ui/react';
+import { Navigate } from 'react-router-dom';
+import { AdminEmployeeListItem } from './AdminEmployeeListItem';
 
-export const AdminEmployeeList = () => {
+type AdminEmployeeListProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getCheckboxProps: any;
+};
+
+export const AdminEmployeeList = ({
+  getCheckboxProps,
+}: AdminEmployeeListProps) => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
-  const [take, _] = useState<number>(25);
+  const take = 25;
 
   const { getAccessTokenSilently } = useAuth0();
-  const queryClient = useQueryClient();
 
-  const { data, isPreviousData, isLoading, isError, error } = useQuery(
-    ['users', cursor],
+  const employees = useQuery(
+    ['employees', cursor, take],
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
@@ -30,7 +34,7 @@ export const AdminEmployeeList = () => {
             query: {
               take: take.toString(),
               cursor: cursor.toString(),
-              rolle: 'Firma',
+              rolle: 'Mitarbeiter',
             },
           }),
       );
@@ -38,28 +42,23 @@ export const AdminEmployeeList = () => {
     { keepPreviousData: true },
   );
 
-  useEffect(() => {
-    queryClient.invalidateQueries('users');
-  }, [cursor, take]);
+  if (employees.isPreviousData) return <Spinner />;
 
-  if (isLoading) return <Spinner />;
+  if (employees.isLoading) return <Spinner />;
 
-  if (isPreviousData) return <Spinner />;
-
-  if (isError) {
-    return <Navigate to={`/error?message=${error}`} />;
+  if (employees.isError) {
+    return <Navigate to={`/error?message=${employees.error}`} />;
   }
 
   return (
     <Flex direction="column">
       <Stack>
-        {data?.map((employee) => (
-          <Flex alignItems="center" key={employee.id}>
-            <Checkbox></Checkbox>
-            <Box width="100%" ml="4">
-              <Employee employee={employee} />
-            </Box>
-          </Flex>
+        {employees.data?.map((employee) => (
+          <AdminEmployeeListItem
+            employee={employee}
+            key={employee.id}
+            getCheckboxProps={getCheckboxProps}
+          />
         ))}
       </Stack>
       <HStack mt="4">
@@ -75,11 +74,11 @@ export const AdminEmployeeList = () => {
         </Button>
         <Button
           onClick={() => {
-            if (!isPreviousData) {
+            if (!employees.isPreviousData) {
               setCursor((old) => old + take);
             }
           }}
-          disabled={isPreviousData}
+          disabled={employees.isPreviousData}
         >
           Next
         </Button>
