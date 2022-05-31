@@ -54,7 +54,7 @@ export const DummyProfile = () => {
         <Heading as='h2'>About</Heading>
         <Code variant='subtle'>
           # Hello i am Dummy 🤖 <br/>
-          > This is my custom markdown profile
+          &gt; This is my custom markdown profile
         </Code>
       </VStack>
     </Container>
