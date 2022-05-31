@@ -8,7 +8,6 @@ import { Container,
   TabList
 } from '@chakra-ui/react';
 import { TimelineEntry } from '@/components/base/TimelineEntry';
-import { Center, Heading } from '@chakra-ui/react';
 
 /*
   maybe split into multiple components => (User is Logged in homepage, Not logged in homepage)
