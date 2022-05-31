@@ -11,10 +11,7 @@ export const TalentsActions = ({ selectedTalents }: TalentsActionsProps) => {
   return (
     <HStack>
       <CreateTalentDialog />
-      <EditTalentDialog
-        selectedTalent={selectedTalents[0]}
-        isDisabled={selectedTalents.length !== 1}
-      />
+      <EditTalentDialog selectedTalents={selectedTalents} />
     </HStack>
   );
 };

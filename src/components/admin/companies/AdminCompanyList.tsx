@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import {
-  Checkbox,
-  Flex,
-  Stack,
-  Box,
-  Button,
-  HStack,
-  Spinner,
-} from '@chakra-ui/react';
-import { useQuery, useQueryClient } from 'react-query';
-import { Company } from '@/components/common/Company';
+import { Flex, Stack, Button, HStack, Spinner } from '@chakra-ui/react';
+import { useQuery } from 'react-query';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
+import { AdminCompanyListItem } from './AdminCompanyListItem';
 
-export const AdminCompanyList = () => {
+type AdminCompanyListProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getCheckboxProps: any;
+};
+
+export const AdminCompanyList = ({
+  getCheckboxProps,
+}: AdminCompanyListProps) => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
-  const [take, _] = useState<number>(25);
+  const take = 25;
 
   const { getAccessTokenSilently } = useAuth0();
-  const queryClient = useQueryClient();
 
   const companies = useQuery(
-    ['companies', cursor],
+    ['companies', cursor, take],
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
@@ -43,13 +41,9 @@ export const AdminCompanyList = () => {
     { keepPreviousData: true },
   );
 
-  useEffect(() => {
-    queryClient.invalidateQueries('companies');
-  }, [cursor, take]);
+  if (companies.isPreviousData) return <Spinner />;
 
   if (companies.isLoading) return <Spinner />;
-
-  if (companies.isPreviousData) return <Spinner />;
 
   if (companies.isError) {
     return <Navigate to={`/error?message=${companies.error}`} />;
@@ -59,12 +53,11 @@ export const AdminCompanyList = () => {
     <Flex direction="column">
       <Stack>
         {companies.data?.map((company) => (
-          <Flex alignItems="center" key={company.id}>
-            <Checkbox></Checkbox>
-            <Box width="100%" ml="4">
-              <Company key={company.id} company={company} />
-            </Box>
-          </Flex>
+          <AdminCompanyListItem
+            company={company}
+            key={company.id}
+            getCheckboxProps={getCheckboxProps}
+          />
         ))}
       </Stack>
       <HStack mt="4">

@@ -12,10 +12,10 @@ export const NavBar = () => {
         <Link to="/" as={NavLink}>
           Home
         </Link>
-        <Link to="/companies" as={NavLink}>
+        <Link to="/firmen" as={NavLink}>
           Firmen
         </Link>
-        <Link to="/talents" as={NavLink}>
+        <Link to="/talente" as={NavLink}>
           Talente
         </Link>
         {!isAuthenticated ? (

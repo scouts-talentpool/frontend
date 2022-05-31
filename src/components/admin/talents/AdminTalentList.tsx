@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import {
-  Checkbox,
-  Flex,
-  Stack,
-  Box,
-  Button,
-  HStack,
-  Spinner,
-  CheckboxGroup,
-} from '@chakra-ui/react';
-import { useQuery, useQueryClient } from 'react-query';
+import { Flex, Stack, Button, HStack, Spinner } from '@chakra-ui/react';
+import { useQuery } from 'react-query';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
-import { Talent } from '@/components/common/Talent';
+import { AdminTalentListItem } from './AdminTalentListItem';
 
-export const AdminTalentList = ({ getCheckboxProps }: any) => {
+type AdminTalentListProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getCheckboxProps: any;
+};
+
+export const AdminTalentList = ({ getCheckboxProps }: AdminTalentListProps) => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
   const take = 25;
 
   const { getAccessTokenSilently } = useAuth0();
-  const queryClient = useQueryClient();
 
   const talents = useQuery(
-    ['talents', cursor],
+    ['talents', cursor, take],
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
@@ -44,10 +39,6 @@ export const AdminTalentList = ({ getCheckboxProps }: any) => {
     { keepPreviousData: true },
   );
 
-  useEffect(() => {
-    queryClient.invalidateQueries('talents');
-  }, [cursor, take]);
-
   if (talents.isPreviousData) return <Spinner />;
 
   if (talents.isLoading) return <Spinner />;
@@ -58,18 +49,15 @@ export const AdminTalentList = ({ getCheckboxProps }: any) => {
 
   return (
     <Flex direction="column">
-      <CheckboxGroup>
-        <Stack>
-          {talents.data?.map((talent) => (
-            <Flex alignItems="center" key={talent.id}>
-              <Checkbox value={talent.id} {...getCheckboxProps()}></Checkbox>
-              <Box width="100%" ml="4">
-                <Talent key={talent.id} talent={talent} />
-              </Box>
-            </Flex>
-          ))}
-        </Stack>
-      </CheckboxGroup>
+      <Stack>
+        {talents.data?.map((talent) => (
+          <AdminTalentListItem
+            talent={talent}
+            key={talent.id}
+            getCheckboxProps={getCheckboxProps}
+          />
+        ))}
+      </Stack>
       <HStack mt="4">
         <Button
           onClick={() => {

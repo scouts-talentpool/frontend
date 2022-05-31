@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Flex, HStack, Spinner, Stack } from '@chakra-ui/react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Talent } from '@/components/common/Talent';
+import { TalentListItem } from '@/components/common/TalentListItem';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ export const TalentList = () => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [take, _] = useState<number>(25);
 
   const { getAccessTokenSilently } = useAuth0();
@@ -50,7 +51,7 @@ export const TalentList = () => {
     <Flex direction="column">
       <Stack>
         {talents.data?.map((talent) => (
-          <Talent key={talent.id} talent={talent} />
+          <TalentListItem key={talent.id} talent={talent} />
         ))}
       </Stack>
       <HStack mt="4">

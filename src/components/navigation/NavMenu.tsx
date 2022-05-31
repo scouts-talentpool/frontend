@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Menu,
   MenuButton,
@@ -22,20 +22,16 @@ export const NavMenu = () => {
   const { user, logout, getAccessTokenSilently } = useAuth0();
   const queryClient = useQueryClient();
 
-  const userDetails = useQuery('me', async () => {
-    return getAccessTokenSilently().then(
-      async (accessToken: string) =>
-        await client.benutzer._id(user?.sub ?? '').$get({
-          config: {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          },
-        }),
-    );
+  const userDetails = useQuery(['me', user], async () => {
+    return getAccessTokenSilently().then(async (accessToken: string) => {
+      if (!user || !user.sub) throw Error('Ihr Benutzer hat keine gültige ID.');
+      return await client.benutzer._id(user.sub.split('|')[1]).$get({
+        config: {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      });
+    });
   });
-
-  useEffect(() => {
-    queryClient.invalidateQueries('me');
-  }, [user]);
 
   if (userDetails.isLoading) {
     return <Skeleton isLoaded={false}></Skeleton>;
@@ -44,6 +40,8 @@ export const NavMenu = () => {
   if (userDetails.isError) {
     return <Navigate to={`/error?message=${userDetails.error}`} />;
   }
+
+  if (!userDetails.data) throw Error(':(');
 
   return (
     <Menu>
@@ -69,7 +67,7 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {!userDetails.data?.firmaId && !userDetails.data?.talentId ? (
+        {!userDetails.data.talentId && !userDetails.data.firmaId ? (
           <></>
         ) : (
           <MenuItem as={NavLink} to="/me">
