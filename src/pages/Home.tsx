@@ -1,10 +1,14 @@
 import React from 'react';
-import { Center, Heading } from '@chakra-ui/react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { UserHome } from './UserHome';
+import { LandingHome } from './LandingHome';
 
 export const Home = () => {
-  return (
-    <Center>
-      <Heading size="sm"></Heading>
-    </Center>
-  );
+  const { isAuthenticated } = useAuth0();
+
+  if(isAuthenticated) {
+    return <UserHome />
+  } else {
+    return <LandingHome />
+  }
 };
