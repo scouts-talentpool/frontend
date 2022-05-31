@@ -13,13 +13,13 @@ import {
   chakra,
 } from '@chakra-ui/react';
 
-type EditTalentDialogProps = {
-  selectedTalents: string[];
+type EditCompanyDialogProps = {
+  selectedCompanies: string[];
 };
 
-export const EditTalentDialog = ({
-  selectedTalents,
-}: EditTalentDialogProps) => {
+export const EditCompanyDialog = ({
+  selectedCompanies,
+}: EditCompanyDialogProps) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const onSubmit = (e: SyntheticEvent) => {
@@ -31,16 +31,16 @@ export const EditTalentDialog = ({
       <Button
         onClick={onOpen}
         type="button"
-        isDisabled={selectedTalents.length === 0}
+        isDisabled={selectedCompanies.length === 0}
       >
-        Talent bearbeiten
+        Firma bearbeiten
       </Button>
       <Modal size="full" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <chakra.form onSubmit={onSubmit}>
             <ModalHeader>
-              <Text size="sm">Talent bearbeiten</Text>
+              <Text size="sm">Firma bearbeiten</Text>
             </ModalHeader>
             <ModalBody></ModalBody>
             <ModalFooter>

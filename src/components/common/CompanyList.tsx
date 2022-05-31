@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Flex, HStack, Spinner, Stack } from '@chakra-ui/react';
 import { useQuery, useQueryClient } from 'react-query';
-import { Company } from '@/components/common/Company';
+import { CompanyListItem } from '@/components/common/CompanyListItem';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
@@ -11,6 +11,7 @@ export const CompanyList = () => {
   const client = api(aspida());
 
   const [cursor, setCursor] = useState<number>(1);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [take, _] = useState<number>(25);
 
   const { getAccessTokenSilently } = useAuth0();
@@ -51,7 +52,7 @@ export const CompanyList = () => {
     <Flex direction="column">
       <Stack>
         {companies.data?.map((company) => (
-          <Company key={company.id} company={company} />
+          <CompanyListItem key={company.id} company={company} />
         ))}
       </Stack>
       <HStack mt="4">

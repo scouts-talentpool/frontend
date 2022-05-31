@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box, Heading, HStack } from '@chakra-ui/react';
+import { Box, Heading, useCheckboxGroup } from '@chakra-ui/react';
 import { AdminCompanyList } from './AdminCompanyList';
-import { BaseButton } from '@/components/base/BaseButton';
+import { CompaniesActions } from './CompaniesActions';
 
 export const CompaniesPanel = () => {
+  const { value, getCheckboxProps } = useCheckboxGroup();
+
   return (
     <Box>
       <Heading size="md" mb="4">
@@ -18,13 +20,10 @@ export const CompaniesPanel = () => {
         padding="4"
         rounded="0px"
       >
-        <HStack justifyContent="center">
-          <BaseButton>Firma Hinzufügen</BaseButton>
-          <BaseButton>Firma Editieren</BaseButton>
-        </HStack>
+        <CompaniesActions selectedCompanies={value.map((v) => v.toString())} />
       </Box>
 
-      <AdminCompanyList />
+      <AdminCompanyList getCheckboxProps={getCheckboxProps} />
     </Box>
   );
 };
