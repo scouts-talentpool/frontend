@@ -12,7 +12,7 @@ export const TalentListItem = ({ talent }: TalentListItemProps) => {
       <Flex alignItems="center" justifyContent="left">
         <Heading size="sm">
           <LinkOverlay href={`/talente/${talent.id}`}>
-            {talent.vorname} {talent.nachname}
+            {talent.benutzer.vorname} {talent.benutzer.nachname}
           </LinkOverlay>
         </Heading>
         <Text size="sm" ml="4">

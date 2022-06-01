@@ -25,10 +25,8 @@ export const NavMenu = () => {
   const userDetails = useQuery(['me', user], async () => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
       if (!user || !user.sub) throw Error('Ihr Benutzer hat keine gültige ID.');
-      return await client.benutzer._id(user.sub.split('|')[1]).$get({
-        config: {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        },
+      return await client.benutzer._authId(user.sub.split('|')[1]).$get({
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
     });
   });
@@ -40,8 +38,6 @@ export const NavMenu = () => {
   if (userDetails.isError) {
     return <Navigate to={`/error?message=${userDetails.error}`} />;
   }
-
-  if (!userDetails.data) throw Error(':(');
 
   return (
     <Menu>
@@ -67,7 +63,7 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {!userDetails.data.talentId && !userDetails.data.firmaId ? (
+        {!userDetails.data?.talent && !userDetails.data?.firma ? (
           <></>
         ) : (
           <MenuItem as={NavLink} to="/me">
