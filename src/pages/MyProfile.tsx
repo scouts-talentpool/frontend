@@ -19,9 +19,10 @@ export const MyProfile = () => {
     });
   });
 
-  const dest = userDetails.data?.firma
-    ? `/firmen/${userDetails.data?.firma.id}`
-    : `/talente/${userDetails.data?.talent.id}`;
+  const dest =
+    userDetails.data?.firma === null
+      ? `/talente/${userDetails.data?.talent.id}`
+      : `/firmen/${userDetails.data?.firma.id}`;
 
   return <Navigate to={dest} />;
 };
