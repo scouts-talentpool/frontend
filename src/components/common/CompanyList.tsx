@@ -6,6 +6,7 @@ import { CompanyListItem } from '@/components/common/CompanyListItem';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
 import { Navigate } from 'react-router-dom';
+import { Firma } from '@/api/@types';
 
 export const CompanyList = () => {
   const client = api(aspida());
@@ -23,12 +24,10 @@ export const CompanyList = () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
           await client.firmen.$get({
-            config: {
-              headers: { Authorization: `Bearer ${accessToken}` },
-            },
+            headers: { Authorization: `Bearer ${accessToken}` },
             query: {
-              take: take.toString(),
-              cursor: cursor.toString(),
+              take: take,
+              cursor: cursor,
             },
           }),
       );
@@ -51,7 +50,7 @@ export const CompanyList = () => {
   return (
     <Flex direction="column">
       <Stack>
-        {companies.data?.map((company) => (
+        {companies.data?.map((company: Firma) => (
           <CompanyListItem key={company.id} company={company} />
         ))}
       </Stack>

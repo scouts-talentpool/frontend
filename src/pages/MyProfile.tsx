@@ -13,17 +13,15 @@ export const MyProfile = () => {
   const userDetails = useQuery(['me', user], async () => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
       if (!user || !user.sub) throw Error('Ihr Benutzer hat keine gültige ID.');
-      return await client.benutzer._id(user.sub.split('|')[1]).$get({
-        config: {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        },
+      return await client.benutzer._authId(user.sub.split('|')[1]).$get({
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
     });
   });
 
-  const dest = userDetails.data?.firmaId
-    ? `/firmen/${userDetails.data?.firmaId}`
-    : `/talente/${userDetails.data?.talentId}`;
+  const dest = userDetails.data?.firma
+    ? `/firmen/${userDetails.data?.firma.id}`
+    : `/talente/${userDetails.data?.talent.id}`;
 
   return <Navigate to={dest} />;
 };

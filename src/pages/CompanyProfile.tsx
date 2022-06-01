@@ -16,10 +16,8 @@ export const CompanyProfile = () => {
   const company = useQuery(['company', id], async () => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
       if (!id) throw Error('Fehlende Firmen ID.');
-      return await client.firmen._id(id).$get({
-        config: {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        },
+      return await client.firmen._id(+id).$get({
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
     });
   });

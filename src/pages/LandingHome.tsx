@@ -1,5 +1,5 @@
-import React from 'react'
-import { Container, Center, Heading, Text, VStack } from '@chakra-ui/react';
+import React from 'react';
+import { Center, Heading, Text, VStack } from '@chakra-ui/react';
 
 export const LandingHome = () => {
   return (
@@ -10,4 +10,4 @@ export const LandingHome = () => {
       </VStack>
     </Center>
   );
-}
+};

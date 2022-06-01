@@ -1,20 +1,26 @@
-/* eslint-disable */
-import type * as Types from '../@types'
+import { DefineMethods } from 'aspida';
+import { Firma } from '../@types';
 
-export type Methods = {
-  post: {
-    status: 201
-    resBody: Types.Firma
-    reqBody: Types.Firma
-  }
-
+export type Methods = DefineMethods<{
   get: {
-    query: {
-      take: string
-      cursor: string
-    }
+    reqHeaders: {
+      Authorization: string;
+    };
 
-    status: 200
-    resBody: Types.Firma[]
-  }
-}
+    query: {
+      cursor: number;
+      take: number;
+    };
+
+    resBody: Firma[];
+  };
+
+  post: {
+    reqHeaders: {
+      Authorization: string;
+    };
+
+    reqBody: Firma;
+    resBody: Firma;
+  };
+}>;

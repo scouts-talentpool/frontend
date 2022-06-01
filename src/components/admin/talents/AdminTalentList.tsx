@@ -26,12 +26,10 @@ export const AdminTalentList = ({ getCheckboxProps }: AdminTalentListProps) => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
           await client.talente.$get({
-            config: {
-              headers: { Authorization: `Bearer ${accessToken}` },
-            },
+            headers: { Authorization: `Bearer ${accessToken}` },
             query: {
-              take: take.toString(),
-              cursor: cursor.toString(),
+              take: take,
+              cursor: cursor,
             },
           }),
       );

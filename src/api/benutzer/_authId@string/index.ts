@@ -7,21 +7,23 @@ export type Methods = DefineMethods<{
       Authorization: string;
     };
 
-    query: {
-      cursor: number;
-      take: number;
-      rolle?: string;
-    };
-
-    resBody: Benutzer[];
+    resBody: Benutzer;
   };
 
-  post: {
+  patch: {
     reqHeaders: {
       Authorization: string;
     };
 
     reqBody: Benutzer;
+    resBody: Benutzer;
+  };
+
+  delete: {
+    reqHeaders: {
+      Authorization: string;
+    };
+
     resBody: Benutzer;
   };
 }>;

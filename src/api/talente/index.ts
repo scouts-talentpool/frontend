@@ -1,20 +1,26 @@
-/* eslint-disable */
-import type * as Types from '../@types'
+import { DefineMethods } from 'aspida';
+import { Talent } from '../@types';
 
-export type Methods = {
-  post: {
-    status: 201
-    resBody: Types.Talent
-    reqBody: Types.Talent
-  }
-
+export type Methods = DefineMethods<{
   get: {
-    query: {
-      take: string
-      cursor: string
-    }
+    reqHeaders: {
+      Authorization: string;
+    };
 
-    status: 200
-    resBody: Types.Talent[]
-  }
-}
+    query: {
+      cursor: number;
+      take: number;
+    };
+
+    resBody: Talent[];
+  };
+
+  post: {
+    reqHeaders: {
+      Authorization: string;
+    };
+
+    reqBody: Talent;
+    resBody: Talent;
+  };
+}>;

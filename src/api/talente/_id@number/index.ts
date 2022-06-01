@@ -1,4 +1,4 @@
-import { Benutzer } from '@/api/@types';
+import { Talent } from '@/api/@types';
 import { DefineMethods } from 'aspida';
 
 export type Methods = DefineMethods<{
@@ -7,21 +7,23 @@ export type Methods = DefineMethods<{
       Authorization: string;
     };
 
-    query: {
-      cursor: number;
-      take: number;
-      rolle?: string;
-    };
-
-    resBody: Benutzer[];
+    resBody: Talent;
   };
 
-  post: {
+  patch: {
     reqHeaders: {
       Authorization: string;
     };
 
-    reqBody: Benutzer;
-    resBody: Benutzer;
+    reqBody: Talent;
+    resBody: Talent;
+  };
+
+  delete: {
+    reqHeaders: {
+      Authorization: string;
+    };
+
+    resBody: Talent;
   };
 }>;

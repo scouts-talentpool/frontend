@@ -16,10 +16,8 @@ export const TalentProfile = () => {
   const talent = useQuery(['talent', id], async () => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
       if (!id) throw Error('Fehlende Talent ID.');
-      return await client.talente._id(id).$get({
-        config: {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        },
+      return await client.talente._id(+id).$get({
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
     });
   });
@@ -32,9 +30,5 @@ export const TalentProfile = () => {
     return <Navigate to={`/error?message=${talent.error}`} />;
   }
 
-  return (
-    <div>
-      Hello {talent.data?.vorname} {talent.data?.nachname}
-    </div>
-  );
+  return <div>Hallo {talent.data?.benutzer.vorname}</div>;
 };
