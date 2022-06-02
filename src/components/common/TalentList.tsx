@@ -17,16 +17,17 @@ export const TalentList = () => {
   const { getAccessTokenSilently } = useAuth0();
   const queryClient = useQueryClient();
 
-  const talents = useQuery(
-    ['talents', cursor],
+  const benutzer = useQuery(
+    ['benutzer', cursor],
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.talente.$get({
+          await client.benutzer.$get({
             headers: { Authorization: `Bearer ${accessToken}` },
             query: {
               take: take,
               cursor: cursor,
+              rolle: 'Talent',
             },
           }),
       );
@@ -35,21 +36,21 @@ export const TalentList = () => {
   );
 
   useEffect(() => {
-    queryClient.invalidateQueries('talents');
+    queryClient.invalidateQueries('benutzer');
   }, [cursor, take]);
 
-  if (talents.isLoading) return <Spinner />;
+  if (benutzer.isLoading) return <Spinner />;
 
-  if (talents.isPreviousData) return <Spinner />;
+  if (benutzer.isPreviousData) return <Spinner />;
 
-  if (talents.isError) {
-    return <Navigate to={`/error?message=${talents.error}`} />;
+  if (benutzer.isError) {
+    return <Navigate to={`/error?message=${benutzer.error}`} />;
   }
   return (
     <Flex direction="column">
       <Stack>
-        {talents.data?.map((talent) => (
-          <TalentListItem key={talent.id} talent={talent} />
+        {benutzer.data?.map((benutzer) => (
+          <TalentListItem key={benutzer.id} benutzer={benutzer} />
         ))}
       </Stack>
       <HStack mt="4">
@@ -65,11 +66,11 @@ export const TalentList = () => {
         </Button>
         <Button
           onClick={() => {
-            if (!talents.isPreviousData) {
+            if (!benutzer.isPreviousData) {
               setCursor((old) => old + take);
             }
           }}
-          disabled={talents.isPreviousData}
+          disabled={benutzer.isPreviousData}
         >
           Next
         </Button>

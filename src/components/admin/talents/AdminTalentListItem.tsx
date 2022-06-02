@@ -1,23 +1,23 @@
 import React from 'react';
-import { Talent } from '@/api/@types';
+import { Benutzer } from '@/api/@types';
 import { TalentListItem } from '@/components/common/TalentListItem';
 import { Checkbox, Flex, Box } from '@chakra-ui/react';
 
 type AdminTalentListItemProps = {
-  talent: Talent;
+  benutzer: Benutzer;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getCheckboxProps: any;
 };
 
 export const AdminTalentListItem = ({
-  talent,
+  benutzer,
   getCheckboxProps,
 }: AdminTalentListItemProps) => {
   return (
-    <Flex alignItems="center" key={talent.id}>
-      <Checkbox {...getCheckboxProps({ value: talent.id })} />
+    <Flex alignItems="center" key={benutzer.id}>
+      <Checkbox {...getCheckboxProps({ value: benutzer.authId })} />
       <Box width="100%" ml="4">
-        <TalentListItem talent={talent} />
+        <TalentListItem benutzer={benutzer} />
       </Box>
     </Flex>
   );

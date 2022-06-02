@@ -19,49 +19,50 @@ import {
   ListItem,
 } from '@chakra-ui/react';
 import { Lehrberuf } from '@/api/@types';
+import { EditTalentDialog } from '@/components/common/EditTalentDialog';
 
 export const TalentProfile = () => {
   const client = api(aspida());
 
   const { id } = useParams();
 
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
 
-  const talent = useQuery(['talent', id], async () => {
+  const benutzer = useQuery(['benutzer', id], async () => {
     return getAccessTokenSilently().then(async (accessToken: string) => {
       if (!id) throw Error('Fehlende Talent ID.');
-      return await client.talente._id(+id).$get({
+      return await client.benutzer._authId(id).$get({
         headers: { Authorization: `Bearer ${accessToken}` },
       });
     });
   });
 
-  if (talent.isLoading) {
+  if (benutzer.isLoading) {
     return <Skeleton isLoaded={false} />;
   }
 
-  if (talent.isError) {
-    return <Navigate to={`/error?message=${talent.error}`} />;
+  if (benutzer.isError) {
+    return <Navigate to={`/error?message=${benutzer.error}`} />;
   }
 
   return (
     <Container maxW="60%" bg="#E2E8F0" p="4">
+      {benutzer.data?.authId === user?.sub?.split('|')[1] ? (
+        <EditTalentDialog selectedTalents={[benutzer.data?.authId ?? '']} />
+      ) : (
+        <></>
+      )}
+
       <Flex>
         <Box>
           <HStack>
             <Avatar
               size="2xl"
-              name={
-                talent.data?.benutzer.vorname +
-                ' ' +
-                talent.data?.benutzer.nachname
-              }
+              name={benutzer.data?.vorname + ' ' + benutzer.data?.nachname}
               src="https://bit.ly/dan-abramov"
             />
             <Heading>
-              {talent.data?.benutzer.vorname +
-                ' ' +
-                talent.data?.benutzer.nachname}
+              {benutzer.data?.vorname + ' ' + benutzer.data?.nachname}
             </Heading>
           </HStack>
         </Box>
@@ -70,30 +71,43 @@ export const TalentProfile = () => {
           <UnorderedList>
             <ListItem>
               <strong>Wohnort:</strong>{' '}
-              {talent.data?.plz + ' ' + talent.data?.wohnort}
+              {benutzer.data?.talent.plz + ' ' + benutzer.data?.talent.wohnort}
             </ListItem>
             <ListItem>
-              <strong>Lehrbeginn:</strong> {talent.data?.abschlussjahr}
+              <strong>Lehrbeginn:</strong> {benutzer.data?.talent.abschlussjahr}
             </ListItem>
             <ListItem>
-              <strong>Campus:</strong> {talent.data?.campus.bezeichnung}
+              <strong>Campus:</strong>{' '}
+              {benutzer.data?.talent.campus.bezeichnung}
             </ListItem>
             <ListItem>
               <strong>Wunschberufe</strong>
               <UnorderedList>
-                {talent.data?.wunschberufe.map((wunschberuf: Lehrberuf) => (
-                  <ListItem key={wunschberuf.id}>
-                    {wunschberuf.bezeichnung}
-                  </ListItem>
-                ))}
+                {benutzer.data?.talent.wunschberufe.map(
+                  (wunschberuf: Lehrberuf) => (
+                    <ListItem key={wunschberuf.id}>
+                      {wunschberuf.bezeichnung}
+                    </ListItem>
+                  ),
+                )}
               </UnorderedList>
             </ListItem>
           </UnorderedList>
         </Box>
       </Flex>
       <VStack>
-        <Heading as="h2">About</Heading>
-        <ReactMarkdown># Hello World!</ReactMarkdown>
+        <Heading as="h2">Meine Stärken</Heading>
+        <ReactMarkdown>
+          {benutzer.data?.talent.meineStaerken ??
+            'Noch keine Informationen vorhanden.'}
+        </ReactMarkdown>
+      </VStack>
+      <VStack>
+        <Heading as="h2">Was ich am Campus am liebsten mache</Heading>
+        <ReactMarkdown>
+          {benutzer.data?.talent.lieblingsCampusAktivitaet ??
+            'Noch keine Informationen vorhanden.'}
+        </ReactMarkdown>
       </VStack>
     </Container>
   );

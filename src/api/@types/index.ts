@@ -9,6 +9,10 @@ export type Benutzer = {
   talent: Talent;
 };
 
+export type Auth0Benutzer = {
+  password?: string;
+};
+
 export type Rolle = {
   id: number;
   bezeichnung: string;
@@ -57,7 +61,6 @@ export type Talent = {
   lieblingsCampusAktivitaet: string;
   campus: Campus;
   wunschberufe: Lehrberuf[];
-  benutzer: Benutzer;
   links: Link[];
 };
 

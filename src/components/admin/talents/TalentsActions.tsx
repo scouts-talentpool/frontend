@@ -1,7 +1,7 @@
 import React from 'react';
 import { HStack } from '@chakra-ui/react';
-import { CreateTalentDialog } from './dialogs/CreateTalentDialog';
-import { EditTalentDialog } from './dialogs/EditTalentDialog';
+// import { CreateTalentDialog } from './dialogs/CreateTalentDialog';
+import { EditTalentDialog } from '@/components/common/EditTalentDialog';
 
 type TalentsActionsProps = {
   selectedTalents: string[];
@@ -10,7 +10,7 @@ type TalentsActionsProps = {
 export const TalentsActions = ({ selectedTalents }: TalentsActionsProps) => {
   return (
     <HStack>
-      <CreateTalentDialog />
+      {/* <CreateTalentDialog /> */}
       <EditTalentDialog selectedTalents={selectedTalents} />
     </HStack>
   );
