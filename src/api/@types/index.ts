@@ -25,7 +25,7 @@ export type Berechtigung = {
 };
 
 export type Firma = {
-  id: string;
+  id: number;
   firmenname: string;
   strasse: string;
   plz: number;
@@ -53,7 +53,7 @@ export type Lehrberuf = {
 };
 
 export type Talent = {
-  id: string;
+  id: number;
   plz: number;
   wohnort: string;
   abschlussjahr: number;
