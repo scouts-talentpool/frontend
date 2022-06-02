@@ -11,7 +11,6 @@ import { CompanyProfile } from './pages/CompanyProfile';
 import { Admin } from './pages/Admin';
 import { Error } from './pages/Error';
 import { MyProfile } from './pages/MyProfile';
-import { DummyProfile } from './pages/DummyProfile';
 
 export const Routes = () => {
   return (
@@ -28,7 +27,6 @@ export const Routes = () => {
         path="*"
         element={<Error message="Diese Seite konnte nicht gefunden werden." />}
       />
-      <Route path="/dummyprofile" element={<DummyProfile />} />
       <Route path="/error" element={<Error />} />
     </PageRoutes>
   );

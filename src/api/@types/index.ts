@@ -21,14 +21,14 @@ export type Berechtigung = {
 };
 
 export type Firma = {
-  id: number;
+  id: string;
   firmenname: string;
-  website: string;
   strasse: string;
   plz: number;
   ort: string;
   firmenportrait: string;
   lehrstellen: Lehrstelle[];
+  links: Link[];
 };
 
 export type Lehrstelle = {
@@ -36,21 +36,29 @@ export type Lehrstelle = {
   startjahr: number;
   stellenanzahl: number;
   lehrberuf: Lehrberuf;
+  ausbildungskonzept: string;
+  bewerbungsvorgehen: string;
+  ausbildungsorte: string[];
+  links: Link[];
 };
 
 export type Lehrberuf = {
   id: number;
   bezeichnung: string;
+  links: Link[];
 };
 
 export type Talent = {
-  id: number;
+  id: string;
   plz: number;
   wohnort: string;
-  lehrbeginn: string;
+  abschlussjahr: number;
+  meineStaerken: string;
+  lieblingsCampusAktivitaet: string;
   campus: Campus;
   wunschberufe: Lehrberuf[];
   benutzer: Benutzer;
+  links: Link[];
 };
 
 export type Campus = {
@@ -59,4 +67,11 @@ export type Campus = {
   strasse: string;
   plz: number;
   ort: string;
+  links: Link[];
+};
+
+export type Link = {
+  id: number;
+  text?: string;
+  url: string;
 };
