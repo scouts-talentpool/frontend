@@ -21,7 +21,7 @@ export const MyProfile = () => {
 
   const dest =
     userDetails.data?.firma === null
-      ? `/talente/${userDetails.data?.talent.id}`
+      ? `/talente/${userDetails.data?.authId}`
       : `/firmen/${userDetails.data?.firma.id}`;
 
   return <Navigate to={dest} />;

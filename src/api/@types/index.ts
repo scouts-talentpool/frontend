@@ -9,6 +9,10 @@ export type Benutzer = {
   talent: Talent;
 };
 
+export type Auth0Benutzer = {
+  password?: string;
+};
+
 export type Rolle = {
   id: number;
   bezeichnung: string;
@@ -21,7 +25,7 @@ export type Berechtigung = {
 };
 
 export type Firma = {
-  id: string;
+  id: number;
   firmenname: string;
   strasse: string;
   plz: number;
@@ -49,7 +53,7 @@ export type Lehrberuf = {
 };
 
 export type Talent = {
-  id: string;
+  id: number;
   plz: number;
   wohnort: string;
   abschlussjahr: number;
@@ -57,7 +61,6 @@ export type Talent = {
   lieblingsCampusAktivitaet: string;
   campus: Campus;
   wunschberufe: Lehrberuf[];
-  benutzer: Benutzer;
   links: Link[];
 };
 

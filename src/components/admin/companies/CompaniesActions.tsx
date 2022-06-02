@@ -1,10 +1,10 @@
 import React from 'react';
 import { HStack } from '@chakra-ui/react';
-import { CreateCompanyDialog } from './dialogs/CreateCompanyDialog';
-import { EditCompanyDialog } from './dialogs/EditCompanyDialog';
+import { CreateCompanyDialog } from '@/components/common/CreateCompanyDialog';
+import { EditCompanyDialog } from '@/components/common/EditCompanyDialog';
 
 type CompaniesActionsProps = {
-  selectedCompanies: string[];
+  selectedCompanies: number[];
 };
 
 export const CompaniesActions = ({

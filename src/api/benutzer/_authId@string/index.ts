@@ -1,4 +1,4 @@
-import { Benutzer } from '@/api/@types';
+import { Auth0Benutzer, Benutzer } from '@/api/@types';
 import { DefineMethods } from 'aspida';
 
 export type Methods = DefineMethods<{
@@ -15,7 +15,7 @@ export type Methods = DefineMethods<{
       Authorization: string;
     };
 
-    reqBody: Benutzer;
+    reqBody: Partial<Benutzer> & Auth0Benutzer;
     resBody: Benutzer;
   };
 

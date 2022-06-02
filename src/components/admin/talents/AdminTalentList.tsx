@@ -20,16 +20,17 @@ export const AdminTalentList = ({ getCheckboxProps }: AdminTalentListProps) => {
 
   const { getAccessTokenSilently } = useAuth0();
 
-  const talents = useQuery(
+  const benutzer = useQuery(
     ['talents', cursor, take],
     async () => {
       return getAccessTokenSilently().then(
         async (accessToken: string) =>
-          await client.talente.$get({
+          await client.benutzer.$get({
             headers: { Authorization: `Bearer ${accessToken}` },
             query: {
               take: take,
               cursor: cursor,
+              rolle: 'Talent',
             },
           }),
       );
@@ -37,21 +38,21 @@ export const AdminTalentList = ({ getCheckboxProps }: AdminTalentListProps) => {
     { keepPreviousData: true },
   );
 
-  if (talents.isPreviousData) return <Spinner />;
+  if (benutzer.isPreviousData) return <Spinner />;
 
-  if (talents.isLoading) return <Spinner />;
+  if (benutzer.isLoading) return <Spinner />;
 
-  if (talents.isError) {
-    return <Navigate to={`/error?message=${talents.error}`} />;
+  if (benutzer.isError) {
+    return <Navigate to={`/error?message=${benutzer.error}`} />;
   }
 
   return (
     <Flex direction="column">
       <Stack>
-        {talents.data?.map((talent) => (
+        {benutzer.data?.map((benutzer) => (
           <AdminTalentListItem
-            talent={talent}
-            key={talent.id}
+            benutzer={benutzer}
+            key={benutzer.id}
             getCheckboxProps={getCheckboxProps}
           />
         ))}
@@ -69,11 +70,11 @@ export const AdminTalentList = ({ getCheckboxProps }: AdminTalentListProps) => {
         </Button>
         <Button
           onClick={() => {
-            if (!talents.isPreviousData) {
+            if (!benutzer.isPreviousData) {
               setCursor((old) => old + take);
             }
           }}
-          disabled={talents.isPreviousData}
+          disabled={benutzer.isPreviousData}
         >
           Next
         </Button>

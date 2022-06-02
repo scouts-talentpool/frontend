@@ -1,7 +1,7 @@
 import React from 'react';
 import { HStack } from '@chakra-ui/react';
-import { CreateEmployeeDialog } from './dialogs/CreateEmployeeDialog';
-import { EditEmployeeDialog } from './dialogs/EditEmployeeDialog';
+import { CreateEmployeeDialog } from '@/components/common/CreateEmployeeDialog';
+import { EditEmployeeDialog } from '@/components/common/EditEmployeeDialog';
 
 type EmployeesActionsProps = {
   selectedEmployees: string[];

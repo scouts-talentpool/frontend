@@ -20,7 +20,7 @@ export const CompaniesPanel = () => {
         padding="4"
         rounded="0px"
       >
-        <CompaniesActions selectedCompanies={value.map((v) => v.toString())} />
+        <CompaniesActions selectedCompanies={value.map((value) => +value)} />
       </Box>
 
       <AdminCompanyList getCheckboxProps={getCheckboxProps} />
