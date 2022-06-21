@@ -18,14 +18,14 @@ export const NavBar = () => {
         <Link to="/talente" as={NavLink}>
           Talente
         </Link>
-        
+        <Link to="/admin" as={NavLink}>
+          Admin
+        </Link>
+
         {!isAuthenticated ? (
           <>
             <Link to="" onClick={loginWithRedirect} as={NavLink}>
               Login
-            </Link>
-            <Link to="/admin" as={NavLink}>
-              Admin
             </Link>
           </>
         ) : (
