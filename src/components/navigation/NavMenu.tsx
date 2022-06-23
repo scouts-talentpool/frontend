@@ -63,8 +63,8 @@ export const NavMenu = () => {
         <br />
         <MenuDivider />
 
-        {userDetails.data?.talent !== null &&
-        userDetails.data?.firma !== null ? (
+        {userDetails.data?.talent === null &&
+        userDetails.data?.firma === null ? (
           <></>
         ) : (
           <MenuItem as={NavLink} to="/me">

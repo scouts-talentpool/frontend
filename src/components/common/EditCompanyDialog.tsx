@@ -18,31 +18,44 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { Firma } from '@/api/@types';
+import aspida from '@aspida/axios';
+import api from '@/api/$api';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 type EditCompanyDialogProps = {
   selectedCompanies: number[];
 };
 
-type FirmaUpdateInput = {
-  firmenname: string;
-  strasse: string;
-  plz: number;
-  ort: string;
-  firmenportrait: string;
-};
-
 export const EditCompanyDialog = ({
   selectedCompanies,
 }: EditCompanyDialogProps) => {
+  const client = api(aspida());
+  const { getAccessTokenSilently } = useAuth0();
+  const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<FirmaUpdateInput>();
+  } = useForm<Firma>();
 
-  const onSubmit: SubmitHandler<FirmaUpdateInput> = (newCompany) => {
-    console.log(newCompany);
+  const updateCompany = useMutation(async (editedCompany: Firma) => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) =>
+        await client.firmen._id(selectedCompanies[0]).$patch({
+          headers: { Authorization: `Bearer ${accessToken}` },
+          body: editedCompany,
+        }),
+    );
+  });
+
+  const onSubmit: SubmitHandler<Firma> = (editedCompany) => {
+    updateCompany.mutateAsync(editedCompany).then((company) => {
+      navigate(`/firmen/${company.id}`);
+    });
   };
 
   return (

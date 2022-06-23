@@ -18,25 +18,39 @@ import {
   Input,
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-
-type FirmaCreateInput = {
-  firmenname: string;
-  strasse: string;
-  plz: number;
-  ort: string;
-  firmenportrait: string;
-};
+import { useMutation } from 'react-query';
+import aspida from '@aspida/axios';
+import api from '@/api/$api';
+import { useAuth0 } from '@auth0/auth0-react';
+import { Firma } from '@/api/@types';
+import { useNavigate } from 'react-router-dom';
 
 export const CreateCompanyDialog = () => {
+  const client = api(aspida());
+  const { getAccessTokenSilently } = useAuth0();
+
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<FirmaCreateInput>();
+  } = useForm<Firma>();
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FirmaCreateInput> = (newCompany) => {
-    console.log(newCompany);
+  const createCompany = useMutation(async (newCompany: Firma) => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) =>
+        await client.firmen.$post({
+          headers: { Authorization: `Bearer ${accessToken}` },
+          body: newCompany,
+        }),
+    );
+  });
+
+  const onSubmit: SubmitHandler<Firma> = (newCompany) => {
+    createCompany.mutateAsync(newCompany).then((company) => {
+      navigate(`/firmen/${company.id}`);
+    });
   };
 
   return (
@@ -79,7 +93,12 @@ export const CreateCompanyDialog = () => {
 
                 <FormControl isInvalid={!!errors.plz}>
                   <FormLabel htmlFor="plz">PLZ</FormLabel>
-                  <Input id="plz" placeholder="6002" {...register('plz')} />
+                  <Input
+                    id="plz"
+                    placeholder="6002"
+                    {...register('plz')}
+                    type="number"
+                  />
                   <FormErrorMessage>
                     {errors.plz && errors.plz.message}
                   </FormErrorMessage>

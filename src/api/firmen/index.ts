@@ -20,7 +20,7 @@ export type Methods = DefineMethods<{
       Authorization: string;
     };
 
-    reqBody: Firma;
+    reqBody: Partial<Firma>;
     resBody: Firma;
   };
 }>;
