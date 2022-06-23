@@ -11,8 +11,8 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (
     baseURL === undefined
       ? process.env.NODE_ENV === 'production'
-        ? 'https://api.talentpool.tk/'
-        : 'http://localhost:2030/'
+        ? 'https://api.talentpool.tk'
+        : 'http://localhost:2030'
       : baseURL
   ).replace(/\/$/, '');
   const PATH0 = '/benutzer';
