@@ -19,7 +19,12 @@ import {
   Select,
 } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Firma } from '@/api/@types';
+import { Benutzer, Firma } from '@/api/@types';
+import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import aspida from '@aspida/axios';
+import api from '@/api/$api';
 
 type EditEmployeeDialogProps = {
   selectedEmployees: string[];
@@ -41,9 +46,24 @@ export const EditEmployeeDialog = ({
     register,
     formState: { errors, isSubmitting },
   } = useForm<MitarbeiterUpdateInput>();
+  const navigate = useNavigate();
+  const { getAccessTokenSilently } = useAuth0();
+  const client = api(aspida());
 
-  const onSubmit: SubmitHandler<MitarbeiterUpdateInput> = (newEmployee) => {
-    console.log(newEmployee);
+  const updateEmployee = useMutation(async (editedEmployee) => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) =>
+        await client.benutzer._authId(selectedEmployees[0]).$patch({
+          headers: { Authorization: `Bearer ${accessToken}` },
+          body: editedEmployee,
+        }),
+    );
+  });
+
+  const onSubmit: SubmitHandler<Benutzer> = (editedEmployee) => {
+    updateEmployee.mutateAsync(editedEmployee).then((employee: Benutzer) => {
+      navigate(`/firmen/${employee.firma.id}`);
+    });
   };
 
   const firmen: Firma[] = [

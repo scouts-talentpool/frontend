@@ -1,6 +1,7 @@
 import React from 'react';
 import { Benutzer } from '@/api/@types';
 import { Checkbox, Flex, Box } from '@chakra-ui/react';
+import { EmployeeListItem } from '@/components/common/EmployeeListItem';
 
 type AdminEmployeeListItemProps = {
   employee: Benutzer;
@@ -15,7 +16,9 @@ export const AdminEmployeeListItem = ({
   return (
     <Flex alignItems="center" key={employee.id}>
       <Checkbox {...getCheckboxProps({ value: employee.id })} />
-      <Box width="100%" ml="4"></Box>
+      <Box width="100%" ml="4">
+        <EmployeeListItem benutzer={employee} />
+      </Box>
     </Flex>
   );
 };
