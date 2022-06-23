@@ -40,7 +40,6 @@ export const EditCompanyDialog = ({
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-    setValue,
   } = useForm<Firma>();
 
   const updateCompany = useMutation(async (editedCompany: Firma) => {
