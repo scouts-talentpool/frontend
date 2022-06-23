@@ -1,4 +1,5 @@
 import React from 'react';
+import aspida from '@aspida/axios';
 import {
   Modal,
   ModalContent,
@@ -19,7 +20,10 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Campus } from '@/api/@types';
+import { Campus, Talent } from '@/api/@types';
+import api from '@/api/$api';
+import { useMutation } from 'react-query';
+import { useAuth0 } from '@auth0/auth0-react';
 
 type TalentUpdateInput = {
   plz: number;
@@ -43,17 +47,27 @@ type EditTalentDialogProps = {
 export const EditTalentDialog = ({
   selectedTalents,
 }: EditTalentDialogProps) => {
+  const client = api(aspida());
+  const { getAccessTokenSilently } = useAuth0();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<TalentUpdateInput & BenutzerUpdateInput>();
+  } = useForm<Talent>();
 
-  const onSubmit: SubmitHandler<TalentUpdateInput & BenutzerUpdateInput> = (
-    newTalent,
-  ) => {
-    console.log(newTalent);
+  const updateTalent = useMutation(async (newTalent: Talent) => {
+    return getAccessTokenSilently().then(
+      async (accessToken: string) =>
+        await client.talente._id(newTalent.id).$patch({
+          headers: { Authorization: `Bearer ${accessToken}` },
+          body: newTalent,
+        }),
+    );
+  });
+
+  const onSubmit: SubmitHandler<Talent> = (editedTalent) => {
+    updateTalent.mutateAsync(editedTalent);
   };
 
   const campus: Campus[] = [
