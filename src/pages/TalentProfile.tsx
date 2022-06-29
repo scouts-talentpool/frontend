@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { Skeleton } from '@chakra-ui/react';
+import { List, Skeleton } from '@chakra-ui/react';
 import { useAuth0 } from '@auth0/auth0-react';
 import aspida from '@aspida/axios';
 import api from '@/api/$api';
@@ -37,6 +37,10 @@ export const TalentProfile = () => {
     });
   });
 
+  const isOwner = () => {
+    return benutzer.data?.authId === user?.sub?.split('|')[1] ? true : false
+  }
+
   if (benutzer.isLoading) {
     return <Skeleton isLoaded={false} />;
   }
@@ -46,13 +50,14 @@ export const TalentProfile = () => {
   }
 
   return (
-    <Container maxW="60%" bg="#E2E8F0" p="4">
-      {benutzer.data?.authId === user?.sub?.split('|')[1] ? (
-        <EditTalentDialog selectedTalents={[benutzer.data?.authId ?? '']} />
-      ) : (
-        <></>
-      )}
-
+    <Container maxW="80%" bg="#E2E8F0" p="4">
+      <Box m="2" mb="5">
+        {isOwner() ? (
+          <EditTalentDialog selectedTalents={[benutzer.data?.authId ?? '']} />
+        ) : (
+          <></>
+        )}
+      </Box>
       <Flex>
         <Box>
           <HStack>
@@ -68,7 +73,7 @@ export const TalentProfile = () => {
         </Box>
         <Spacer />
         <Box>
-          <UnorderedList>
+          <List>
             <ListItem>
               <strong>Wohnort:</strong>{' '}
               {benutzer.data?.talent.plz + ' ' + benutzer.data?.talent.wohnort}
@@ -82,7 +87,7 @@ export const TalentProfile = () => {
             </ListItem>
             <ListItem>
               <strong>Wunschberufe</strong>
-              <UnorderedList>
+              <List>
                 {benutzer.data?.talent.wunschberufe.map(
                   (wunschberuf: Lehrberuf) => (
                     <ListItem key={wunschberuf.id}>
@@ -90,12 +95,12 @@ export const TalentProfile = () => {
                     </ListItem>
                   ),
                 )}
-              </UnorderedList>
+              </List>
             </ListItem>
-          </UnorderedList>
+          </List>
         </Box>
       </Flex>
-      <VStack>
+      <VStack mt="4">
         <Heading as="h2">Meine Stärken</Heading>
         <ReactMarkdown>
           {benutzer.data?.talent.meineStaerken ??
