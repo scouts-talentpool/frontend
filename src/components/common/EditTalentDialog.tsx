@@ -24,6 +24,7 @@ import { Campus, Talent } from '@/api/@types';
 import api from '@/api/$api';
 import { useMutation } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 type TalentUpdateInput = {
   plz: number;
@@ -50,24 +51,27 @@ export const EditTalentDialog = ({
   const client = api(aspida());
   const { getAccessTokenSilently } = useAuth0();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm<Talent>();
 
-  const updateTalent = useMutation(async (newTalent: Talent) => {
+  const updateTalent = useMutation(async (editedTalent: Talent) => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
-        await client.talente._id(newTalent.id).$patch({
+        await client.talente._id(editedTalent.id).$patch({
           headers: { Authorization: `Bearer ${accessToken}` },
-          body: newTalent,
+          body: editedTalent,
         }),
     );
   });
 
   const onSubmit: SubmitHandler<Talent> = (editedTalent) => {
-    updateTalent.mutateAsync(editedTalent);
+    updateTalent.mutateAsync(editedTalent).then((talent) => {
+      navigate(`/talente/${talent.id}`);
+    });
   };
 
   const campus: Campus[] = [
