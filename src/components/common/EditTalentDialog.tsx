@@ -20,26 +20,11 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Campus, Talent } from '@/api/@types';
+import { Campus, Benutzer } from '@/api/@types';
 import api from '@/api/$api';
 import { useMutation } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
-
-type TalentUpdateInput = {
-  plz: number;
-  wohnort: string;
-  abschlussjahr: number;
-  meineStaerken: string;
-  lieblingsCampusAktivitaet: string;
-  campusId: number;
-};
-
-type BenutzerUpdateInput = {
-  vorname: string;
-  nachname: string;
-  email: string;
-};
 
 type EditTalentDialogProps = {
   selectedTalents: string[];
@@ -56,21 +41,31 @@ export const EditTalentDialog = ({
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<Talent>();
+  } = useForm<Benutzer>();
 
-  const updateTalent = useMutation(async (editedTalent: Talent) => {
-    return getAccessTokenSilently().then(
-      async (accessToken: string) =>
-        await client.talente._id(editedTalent.id).$patch({
+  const updateData = useMutation(async (editedData: Benutzer) => {
+    const {talent, ...editedBenutzer} = editedData
+    console.log(talent);
+    console.log(editedBenutzer);
+
+    getAccessTokenSilently().then(
+      async (accessToken: string) => {
+        const updatedBenutzer = await client.benutzer._authId(selectedTalents[0]).$patch({
           headers: { Authorization: `Bearer ${accessToken}` },
-          body: editedTalent,
-        }),
+          body: editedBenutzer,
+        });
+        console.log(updatedBenutzer);
+        return await client.talente._id(updatedBenutzer.talent.id).$patch({
+          headers: { Authorization: `Bearer ${accessToken}` },
+          body: talent,
+        });
+      }
     );
-  });
+  })
 
-  const onSubmit: SubmitHandler<Talent> = (editedTalent) => {
-    updateTalent.mutateAsync(editedTalent).then((talent) => {
-      navigate(`/talente/${talent.id}`);
+  const onSubmit: SubmitHandler<Benutzer> = (editedData) => {
+    updateData.mutateAsync(editedData).then((talent) => {
+      // navigate(`/talente/${talent.id}`);
     });
   };
 
@@ -111,7 +106,7 @@ export const EditTalentDialog = ({
             </ModalHeader>
             <ModalBody>
               <Container p="4">
-                <chakra.fieldset border="2px" p="4">
+                <chakra.fieldset border="0px" p="4">
                   <chakra.legend fontWeight="bold">Benutzer</chakra.legend>
 
                   <FormControl isInvalid={!!errors.vorname}>
@@ -150,27 +145,27 @@ export const EditTalentDialog = ({
                     </FormErrorMessage>
                   </FormControl>
                 </chakra.fieldset>
-                <chakra.fieldset border="2px" p="4" mt="4">
+                <chakra.fieldset border="0px" p="4" mt="4">
                   <chakra.legend fontWeight="bold">Talent</chakra.legend>
 
-                  <FormControl isInvalid={!!errors.abschlussjahr}>
+                  <FormControl isInvalid={!!errors.talent?.abschlussjahr}>
                     <FormLabel htmlFor="abschlussjahr">Abschlussjahr</FormLabel>
                     <Input
                       id="abschlussjahr"
                       placeholder="2022"
-                      {...register('abschlussjahr')}
+                      {...register('talent.abschlussjahr')}
                     />
                     <FormErrorMessage>
-                      {errors.abschlussjahr && errors.abschlussjahr.message}
+                      {errors.talent?.abschlussjahr && errors.talent?.abschlussjahr.message}
                     </FormErrorMessage>
                   </FormControl>
 
-                  <FormControl isInvalid={!!errors.campusId}>
-                    <FormLabel htmlFor="campusId">Campus</FormLabel>
+                  <FormControl isInvalid={!!errors.talent?.campus}>
+                    <FormLabel htmlFor="campus">Campus</FormLabel>
                     <Select
-                      id="campusId"
+                      id="campus"
                       placeholder="Campus auswählen"
-                      {...register('campusId')}
+                      {...register('talent.campus')}
                     >
                       {campus.map((campus) => (
                         <option key={campus.id} value={campus.id}>
@@ -179,7 +174,7 @@ export const EditTalentDialog = ({
                       ))}
                     </Select>
                     <FormErrorMessage>
-                      {errors.campusId && errors.campusId.message}
+                      {errors.talent?.campus && errors.talent?.campus.id?.message}
                     </FormErrorMessage>
                   </FormControl>
                 </chakra.fieldset>

@@ -8,7 +8,7 @@ import type { Methods as Methods4 } from './talente'
 import type { Methods as Methods5 } from './talente/_id@number'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
-  const prefix = (baseURL === undefined ? 'https://api.talentpool.tk/' : baseURL).replace(/\/$/, '')
+  const prefix = (baseURL === undefined ? 'http://localhost:2030/' : baseURL).replace(/\/$/, '')
   const PATH0 = '/benutzer'
   const PATH1 = '/firmen'
   const PATH2 = '/talente'
