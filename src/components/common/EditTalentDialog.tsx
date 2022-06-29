@@ -45,8 +45,6 @@ export const EditTalentDialog = ({
 
   const updateData = useMutation(async (editedData: Benutzer) => {
     const {talent, ...editedBenutzer} = editedData
-    console.log(talent);
-    console.log(editedBenutzer);
 
     getAccessTokenSilently().then(
       async (accessToken: string) => {
@@ -54,7 +52,6 @@ export const EditTalentDialog = ({
           headers: { Authorization: `Bearer ${accessToken}` },
           body: editedBenutzer,
         });
-        console.log(updatedBenutzer);
         return await client.talente._id(updatedBenutzer.talent.id).$patch({
           headers: { Authorization: `Bearer ${accessToken}` },
           body: talent,
