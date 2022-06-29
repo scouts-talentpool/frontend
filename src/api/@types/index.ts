@@ -6,7 +6,9 @@ export type Benutzer = {
   email: string;
   rolle: Rolle;
   firma: Firma;
+  firmaId: number;
   talent: Talent;
+  talentId: number;
 };
 
 export type Auth0Benutzer = {
@@ -43,6 +45,8 @@ export type Lehrstelle = {
   ausbildungskonzept: string;
   bewerbungsvorgehen: string;
   ausbildungsorte: string[];
+  firma: Firma;
+  firmaId: number;
   links: Link[];
 };
 

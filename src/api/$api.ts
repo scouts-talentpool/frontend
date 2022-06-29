@@ -4,14 +4,19 @@ import type { Methods as Methods0 } from './benutzer'
 import type { Methods as Methods1 } from './benutzer/_authId@string'
 import type { Methods as Methods2 } from './firmen'
 import type { Methods as Methods3 } from './firmen/_id@number'
-import type { Methods as Methods4 } from './talente'
-import type { Methods as Methods5 } from './talente/_id@number'
+import type { Methods as Methods4 } from './lehrberufe'
+import type { Methods as Methods5 } from './lehrstellen'
+import type { Methods as Methods6 } from './lehrstellen/_id@number'
+import type { Methods as Methods7 } from './talente'
+import type { Methods as Methods8 } from './talente/_id@number'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (baseURL === undefined ? 'http://localhost:2030/' : baseURL).replace(/\/$/, '')
   const PATH0 = '/benutzer'
   const PATH1 = '/firmen'
-  const PATH2 = '/talente'
+  const PATH2 = '/lehrberufe'
+  const PATH3 = '/lehrstellen'
+  const PATH4 = '/talente'
   const GET = 'GET'
   const POST = 'POST'
   const DELETE = 'DELETE'
@@ -80,36 +85,70 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
       $path: (option?: { method?: 'get' | undefined; query: Methods2['get']['query'] } | undefined) =>
         `${prefix}${PATH1}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     },
-    talente: {
-      _id: (val1: number) => {
-        const prefix1 = `${PATH2}/${val1}`
-
-        return {
-          get: (option: { headers: Methods5['get']['reqHeaders'], config?: T | undefined }) =>
-            fetch<Methods5['get']['resBody']>(prefix, prefix1, GET, option).json(),
-          $get: (option: { headers: Methods5['get']['reqHeaders'], config?: T | undefined }) =>
-            fetch<Methods5['get']['resBody']>(prefix, prefix1, GET, option).json().then(r => r.body),
-          patch: (option: { body: Methods5['patch']['reqBody'], headers: Methods5['patch']['reqHeaders'], config?: T | undefined }) =>
-            fetch<Methods5['patch']['resBody']>(prefix, prefix1, PATCH, option).json(),
-          $patch: (option: { body: Methods5['patch']['reqBody'], headers: Methods5['patch']['reqHeaders'], config?: T | undefined }) =>
-            fetch<Methods5['patch']['resBody']>(prefix, prefix1, PATCH, option).json().then(r => r.body),
-          delete: (option: { headers: Methods5['delete']['reqHeaders'], config?: T | undefined }) =>
-            fetch<Methods5['delete']['resBody']>(prefix, prefix1, DELETE, option).json(),
-          $delete: (option: { headers: Methods5['delete']['reqHeaders'], config?: T | undefined }) =>
-            fetch<Methods5['delete']['resBody']>(prefix, prefix1, DELETE, option).json().then(r => r.body),
-          $path: () => `${prefix}${prefix1}`
-        }
-      },
-      get: (option: { query: Methods4['get']['query'], headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
+    lehrberufe: {
+      get: (option: { headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods4['get']['resBody']>(prefix, PATH2, GET, option).json(),
-      $get: (option: { query: Methods4['get']['query'], headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
+      $get: (option: { headers: Methods4['get']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods4['get']['resBody']>(prefix, PATH2, GET, option).json().then(r => r.body),
       post: (option: { body: Methods4['post']['reqBody'], headers: Methods4['post']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods4['post']['resBody']>(prefix, PATH2, POST, option).json(),
       $post: (option: { body: Methods4['post']['reqBody'], headers: Methods4['post']['reqHeaders'], config?: T | undefined }) =>
         fetch<Methods4['post']['resBody']>(prefix, PATH2, POST, option).json().then(r => r.body),
-      $path: (option?: { method?: 'get' | undefined; query: Methods4['get']['query'] } | undefined) =>
-        `${prefix}${PATH2}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
+      $path: () => `${prefix}${PATH2}`
+    },
+    lehrstellen: {
+      _id: (val1: number) => {
+        const prefix1 = `${PATH3}/${val1}`
+
+        return {
+          get: (option: { headers: Methods6['get']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods6['get']['resBody']>(prefix, prefix1, GET, option).json(),
+          $get: (option: { headers: Methods6['get']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods6['get']['resBody']>(prefix, prefix1, GET, option).json().then(r => r.body),
+          $path: () => `${prefix}${prefix1}`
+        }
+      },
+      get: (option: { query: Methods5['get']['query'], headers: Methods5['get']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods5['get']['resBody']>(prefix, PATH3, GET, option).json(),
+      $get: (option: { query: Methods5['get']['query'], headers: Methods5['get']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods5['get']['resBody']>(prefix, PATH3, GET, option).json().then(r => r.body),
+      post: (option: { body: Methods5['post']['reqBody'], headers: Methods5['post']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods5['post']['resBody']>(prefix, PATH3, POST, option).json(),
+      $post: (option: { body: Methods5['post']['reqBody'], headers: Methods5['post']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods5['post']['resBody']>(prefix, PATH3, POST, option).json().then(r => r.body),
+      $path: (option?: { method?: 'get' | undefined; query: Methods5['get']['query'] } | undefined) =>
+        `${prefix}${PATH3}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
+    },
+    talente: {
+      _id: (val1: number) => {
+        const prefix1 = `${PATH4}/${val1}`
+
+        return {
+          get: (option: { headers: Methods8['get']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods8['get']['resBody']>(prefix, prefix1, GET, option).json(),
+          $get: (option: { headers: Methods8['get']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods8['get']['resBody']>(prefix, prefix1, GET, option).json().then(r => r.body),
+          patch: (option: { body: Methods8['patch']['reqBody'], headers: Methods8['patch']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods8['patch']['resBody']>(prefix, prefix1, PATCH, option).json(),
+          $patch: (option: { body: Methods8['patch']['reqBody'], headers: Methods8['patch']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods8['patch']['resBody']>(prefix, prefix1, PATCH, option).json().then(r => r.body),
+          delete: (option: { headers: Methods8['delete']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods8['delete']['resBody']>(prefix, prefix1, DELETE, option).json(),
+          $delete: (option: { headers: Methods8['delete']['reqHeaders'], config?: T | undefined }) =>
+            fetch<Methods8['delete']['resBody']>(prefix, prefix1, DELETE, option).json().then(r => r.body),
+          $path: () => `${prefix}${prefix1}`
+        }
+      },
+      get: (option: { query: Methods7['get']['query'], headers: Methods7['get']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods7['get']['resBody']>(prefix, PATH4, GET, option).json(),
+      $get: (option: { query: Methods7['get']['query'], headers: Methods7['get']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods7['get']['resBody']>(prefix, PATH4, GET, option).json().then(r => r.body),
+      post: (option: { body: Methods7['post']['reqBody'], headers: Methods7['post']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods7['post']['resBody']>(prefix, PATH4, POST, option).json(),
+      $post: (option: { body: Methods7['post']['reqBody'], headers: Methods7['post']['reqHeaders'], config?: T | undefined }) =>
+        fetch<Methods7['post']['resBody']>(prefix, PATH4, POST, option).json().then(r => r.body),
+      $path: (option?: { method?: 'get' | undefined; query: Methods7['get']['query'] } | undefined) =>
+        `${prefix}${PATH4}${option && option.query ? `?${dataToURLString(option.query)}` : ''}`
     }
   }
 }

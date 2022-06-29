@@ -8,6 +8,8 @@ import { Talents } from './pages/Talents';
 import { TalentProfile } from './pages/TalentProfile';
 import { Companies } from './pages/Companies';
 import { CompanyProfile } from './pages/CompanyProfile';
+import { Lehrstellen } from './pages/Lehrstellen';
+import { LehrstellenAusschreibung } from './pages/LehrstellenAusschreibung';
 import { Admin } from './pages/Admin';
 import { Error } from './pages/Error';
 import { MyProfile } from './pages/MyProfile';
@@ -20,6 +22,8 @@ export const Routes = () => {
       <Route path="/firmen/:id" element={<CompanyProfile />} />
       <Route path="/talente" element={<Talents />} />
       <Route path="/talente/:id" element={<TalentProfile />} />
+      <Route path="/lehrstellen" element={<Lehrstellen />} />
+      <Route path="/lehrstellen/:id" element={<LehrstellenAusschreibung />} />
       <Route path="/me" element={<ProtectedRoute component={MyProfile} />} />
       {/* <Route path="/admin" element={<ProtectedRoute component={Admin} />} /> */}
       <Route path="/admin" element={<Admin />} />
