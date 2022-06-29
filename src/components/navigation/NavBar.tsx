@@ -18,6 +18,9 @@ export const NavBar = () => {
         <Link to="/talente" as={NavLink}>
           Talente
         </Link>
+        <Link to="/lehrstellen" as={NavLink}>
+          Lehrstellen 
+        </Link>
         <Link to="/admin" as={NavLink}>
           Admin
         </Link>
