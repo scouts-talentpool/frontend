@@ -53,7 +53,7 @@ export const EditCompanyDialog = ({
   });
 
   const onSubmit: SubmitHandler<Firma> = (editedCompany) => {
-    updateCompany.mutateAsync(editedCompany).then((company) => {
+    updateCompany.mutateAsync(editedCompany).then((company: Firma) => {
       navigate(`/firmen/${company.id}`);
     });
   };

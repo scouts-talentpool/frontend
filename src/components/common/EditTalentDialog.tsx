@@ -20,7 +20,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Campus, Benutzer } from '@/api/@types';
+import { Campus, Benutzer, Talent } from '@/api/@types';
 import api from '@/api/$api';
 import { useMutation } from 'react-query';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -44,17 +44,15 @@ export const EditTalentDialog = ({
   } = useForm<Benutzer>();
 
   const updateData = useMutation(async (editedData: Benutzer) => {
-    const {talent, ...editedBenutzer} = editedData
-    console.log(talent);
-    console.log(editedBenutzer);
+    const {talent, ...editedBenutzer} = editedData;
 
-    getAccessTokenSilently().then(
+    return getAccessTokenSilently().then(
       async (accessToken: string) => {
         const updatedBenutzer = await client.benutzer._authId(selectedTalents[0]).$patch({
           headers: { Authorization: `Bearer ${accessToken}` },
           body: editedBenutzer,
         });
-        console.log(updatedBenutzer);
+
         return await client.talente._id(updatedBenutzer.talent.id).$patch({
           headers: { Authorization: `Bearer ${accessToken}` },
           body: talent,
@@ -65,7 +63,7 @@ export const EditTalentDialog = ({
 
   const onSubmit: SubmitHandler<Benutzer> = (editedData) => {
     updateData.mutateAsync(editedData).then((talent) => {
-      // navigate(`/talente/${talent.id}`);
+      navigate(`/talente/${talent.id}`);
     });
   };
 
