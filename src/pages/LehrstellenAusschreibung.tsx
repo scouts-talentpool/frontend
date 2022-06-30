@@ -36,6 +36,17 @@ export const LehrstellenAusschreibung = () => {
     });
   });
 
+  const firma = useQuery(['lehrstelle', id], async () => {
+    return getAccessTokenSilently().then(async (accessToken: string) => {
+      if (!id) throw Error('Fehlende Lehrstellen ID');
+      return await client.firmen._id(lehrstelle.data?.firmaId!).$get({
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+      });
+    })
+  });
+
   if (lehrstelle.isLoading) {
     return <Skeleton isLoaded={false} />;
   }
@@ -57,7 +68,7 @@ export const LehrstellenAusschreibung = () => {
               <strong>Startjahr</strong> {lehrstelle.data?.startjahr}
             </ListItem>
             <ListItem>
-              <strong>Lehrbetrieb</strong> {lehrstelle.data?.firma.firmenname}
+              <strong>Lehrbetrieb</strong> {firma.data?.firmenname}
             </ListItem>
             <ListItem>
               <strong>Ausbildungsorte</strong>

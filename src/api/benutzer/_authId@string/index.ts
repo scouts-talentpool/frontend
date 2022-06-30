@@ -15,7 +15,7 @@ export type Methods = DefineMethods<{
       Authorization: string;
     };
 
-    reqBody: Partial<Benutzer> & Auth0Benutzer;
+    reqBody: Partial<Benutzer> & Partial<Auth0Benutzer>;
     resBody: Benutzer;
   };
 

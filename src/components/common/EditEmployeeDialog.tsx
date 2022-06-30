@@ -50,7 +50,7 @@ export const EditEmployeeDialog = ({
   const { getAccessTokenSilently } = useAuth0();
   const client = api(aspida());
 
-  const updateEmployee = useMutation(async (editedEmployee) => {
+  const updateEmployee = useMutation(async (editedEmployee: Partial<Benutzer>) => {
     return getAccessTokenSilently().then(
       async (accessToken: string) =>
         await client.benutzer._authId(selectedEmployees[0]).$patch({
@@ -60,9 +60,9 @@ export const EditEmployeeDialog = ({
     );
   });
 
-  const onSubmit: SubmitHandler<Benutzer> = (editedEmployee) => {
-    updateEmployee.mutateAsync(editedEmployee).then((employee: Benutzer) => {
-      navigate(`/firmen/${employee.firma.id}`);
+  const onSubmit: SubmitHandler<MitarbeiterUpdateInput> = (editedEmployee) => {
+    updateEmployee.mutateAsync(editedEmployee).then((employee: MitarbeiterUpdateInput) => {
+      navigate(`/firmen/${employee.firmaId}`);
     });
   };
 

@@ -16,7 +16,7 @@ export const LehrstellenListItem = ({ lehrstelle }: LehrstellenListItemProps) =>
                     </LinkOverlay>
                 </Heading>
                 <Text size="sm" ml="4">
-                    {lehrstelle.firma.firmenname}
+                    {lehrstelle.firmaId} 
                 </Text>
             </Flex>
         </LinkBox>

@@ -157,25 +157,6 @@ export const EditTalentDialog = ({
                         errors.talent?.abschlussjahr.message}
                     </FormErrorMessage>
                   </FormControl>
-
-                  <FormControl isInvalid={!!errors.talent?.campus}>
-                    <FormLabel htmlFor="campus">Campus</FormLabel>
-                    <Select
-                      id="campus"
-                      placeholder="Campus auswählen"
-                      {...register('talent.campus')}
-                    >
-                      {campus.map((campus) => (
-                        <option key={campus.id} value={campus.id}>
-                          {campus.bezeichnung}
-                        </option>
-                      ))}
-                    </Select>
-                    <FormErrorMessage>
-                      {errors.talent?.campus &&
-                        errors.talent?.campus.id?.message}
-                    </FormErrorMessage>
-                  </FormControl>
                 </chakra.fieldset>
               </Container>
             </ModalBody>
