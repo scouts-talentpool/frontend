@@ -44,22 +44,21 @@ export const EditTalentDialog = ({
   } = useForm<Benutzer>();
 
   const updateData = useMutation(async (editedData: Benutzer) => {
-    const {talent, ...editedBenutzer} = editedData;
+    const { talent, ...editedBenutzer } = editedData;
 
-    return getAccessTokenSilently().then(
-      async (accessToken: string) => {
-        const updatedBenutzer = await client.benutzer._authId(selectedTalents[0]).$patch({
+    return getAccessTokenSilently().then(async (accessToken: string) => {
+      const updatedBenutzer = await client.benutzer
+        ._authId(selectedTalents[0])
+        .$patch({
           headers: { Authorization: `Bearer ${accessToken}` },
           body: editedBenutzer,
         });
-
-        return await client.talente._id(updatedBenutzer.talent.id).$patch({
-          headers: { Authorization: `Bearer ${accessToken}` },
-          body: talent,
-        });
-      }
-    );
-  })
+      return await client.talente._id(updatedBenutzer.talent.id).$patch({
+        headers: { Authorization: `Bearer ${accessToken}` },
+        body: talent,
+      });
+    });
+  });
 
   const onSubmit: SubmitHandler<Benutzer> = (editedData) => {
     updateData.mutateAsync(editedData).then((talent) => {
@@ -154,7 +153,8 @@ export const EditTalentDialog = ({
                       {...register('talent.abschlussjahr')}
                     />
                     <FormErrorMessage>
-                      {errors.talent?.abschlussjahr && errors.talent?.abschlussjahr.message}
+                      {errors.talent?.abschlussjahr &&
+                        errors.talent?.abschlussjahr.message}
                     </FormErrorMessage>
                   </FormControl>
 
@@ -172,7 +172,8 @@ export const EditTalentDialog = ({
                       ))}
                     </Select>
                     <FormErrorMessage>
-                      {errors.talent?.campus && errors.talent?.campus.id?.message}
+                      {errors.talent?.campus &&
+                        errors.talent?.campus.id?.message}
                     </FormErrorMessage>
                   </FormControl>
                 </chakra.fieldset>

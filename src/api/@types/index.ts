@@ -45,7 +45,6 @@ export type Lehrstelle = {
   ausbildungskonzept: string;
   bewerbungsvorgehen: string;
   ausbildungsorte: string[];
-  firma: Firma;
   firmaId: number;
   links: Link[];
 };
