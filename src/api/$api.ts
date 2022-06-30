@@ -10,8 +10,8 @@ import type { Methods as Methods6 } from './lehrstellen/_id@number'
 import type { Methods as Methods7 } from './talente'
 import type { Methods as Methods8 } from './talente/_id@number'
 
-const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
-  const prefix = (baseURL === undefined ? 'http://localhost:2030/' : baseURL).replace(/\/$/, '')
+const api = <T>({ fetch }: AspidaClient<T>) => {
+  const prefix = ('https://api.talentpool.tk/').replace(/\/$/, '')
   const PATH0 = '/benutzer'
   const PATH1 = '/firmen'
   const PATH2 = '/lehrberufe'
