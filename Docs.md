@@ -2,7 +2,8 @@
 
 ### Welche Technologien werden verwendet?
 Im Frontend wird React mit Typescript, ChakraUI, React-Query, Aspida, Auth0 verwendet.
-Im Backend haben wir NestJS und die Auth0 Library verwendet.  
+Im Backend haben wir NestJS und die Auth0 Library verwendet.
+Daten im Backend werden in einer Postgres Datenbank gespeichert. Diese wird via [Prisma](https://www.prisma.io/) verwaltet.
 ### Eine Übersicht über die Komponenten der App (Komponenten-Diagramm)
 ![net_talentpool.png](./assets/net_talentpool.png)
 ### (Lian) Welche Anforderungen wurden umgesetzt?
@@ -49,6 +50,6 @@ AUTH0_USER_DATABASE=
 AUTH0_AUDIENCE=http://localhost:2030
 NODE_ENV="development"
 ```
-#### Kontaktdaten: an wen kann sich Stefan bei Problemen wenden?
+#### Kontaktdaten
 * Kris Huber <kris@krishuber.xyz>
 * Lian Studer <ln.studer@protonmail.ch>
