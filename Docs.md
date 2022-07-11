@@ -31,7 +31,7 @@ frontend $ npm run dev
 ```sh
 backend $ npm run dev
 ```
-#### Auth0 (Lian)
+#### (Lian) Auth0
 #### Environment
 ##### Frontend .env
 ```sh
