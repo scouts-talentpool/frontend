@@ -39,7 +39,7 @@
     "eslint-plugin-react": "^7.29.4",
     "sass": "^1.49.9",
     "typescript": "^4.5.4",
-    "vite": "^2.8.0"
+    "vite": "^2.9.13"
   },
   "volta": {
     "node": "16.15.0",
